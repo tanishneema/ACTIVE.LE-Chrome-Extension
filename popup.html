@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="optionbar">
+      <button id="reset"></button>
+      <button id="fpassword"></button>
+      <button id="option"></button>
+    </div>
+    <h1><u>Study Planner</u></h1>
+    <div id="intro">
+      <input
+        type="text"
+        placeholder="Name"
+        required="required"
+        id="nameInput"
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        required="required"
+        id="passInput"
+      />
+      <input
+        type="password"
+        placeholder="Confirm Password"
+        required="required"
+        id="conPassInput"
+      />
+      <input
+        type="text"
+        placeholder="Security Question"
+        required="required"
+        id="secque"
+      />
+      <input type="text" placeholder="Answer" required="required" id="ans" />
+
+      <button id="subName">Submit</button>
+    </div>
+
+    <div id="timming">
+      <h3>Block websites</h3>
+      <!-- <form> -->
+      <div id="radiocheck">
+        <input
+          type="radio"
+          checked="checked"
+          id="all"
+          name="rate"
+          value="all"
+        />
+        <label for="all">All Time</label><br />
+        <input type="radio" id="study" name="rate" value="study" />
+        <label for="study">During Study Hours</label><br />
+        <input type="radio" id="schedule" name="rate" value="schedule" />
+        <label for="schedule">According to Schedule</label><br />
+        <input type="radio" id="never" name="rate" value="never" />
+        <label for="never">Never</label><br />
+        <button id="savetime">Save</button>
+        <!-- </form> -->
+      </div>
+    </div>
+
+    <div id="working">
+      <p id="greet"></p>
+      <div class="input">
+        <input
+          type="number"
+          placeholder="Time"
+          required="required"
+          id="hours"
+        />
+        <button id="add">Set Reminder</button>
+        <button id="remove">Stop</button>
+      </div>
+    </div>
+    <!-- <hr /> -->
+    <script type="text/javascript" src="index.js" defer></script>
+    <script type="module" src="popup.js" defer></script>
+  </body>
+</html>

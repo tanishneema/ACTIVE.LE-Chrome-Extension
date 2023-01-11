@@ -191,6 +191,29 @@ chrome.omnibox.onInputEntered.addListener(function (text) {
         chrome.tabs.create({ url: text });
 })
 
+chrome.omnibox.onInputChanged.addListener(function (text, suggest) {
+    // console.log(text);
+    var suggestions = [];
+    suggestions.push({ deletable: true, content: "https://www.reddit.com/search/?q=" + text, description: '(Reddit) ' + text });
+    suggestions.push({ deletable: true, content: "https://twitter.com/search?q=" + text + "&src=typed_query", description: '(Twitter) ' + text });
+    suggestions.push({ deletable: true, content: "https://www.youtube.com/results?search_query=" + text, description: '(Youtube) ' + text });
+    suggestions.push({ deletable: true, content: "https://en.wikipedia.org/wiki/" + text, description: '(Wikipedia) ' + text });
+    suggestions.push({ deletable: true, content: "https://news.google.com/search?q=" + text + "&hl=en-IN&gl=IN&ceid=IN%3Aen", description: '(Google News) ' + text });
+    suggestions.push({ deletable: true, content: "https://www.amazon.in/s?k=" + text, description: '(Amazon) ' + text });
+    suggest(suggestions);
+})
+
+chrome.tabs.onUpdated.addListener((tabId, tab) => {
+    if (tab.url && tab.url.includes("youtube.com/watch")) {
+        const queryParameters = tab.url.split("?")[1];
+        const urlParameters = new URLSearchParams(queryParameters);
+
+        chrome.tabs.sendMessage(tabId, {
+            type: "NEW",
+            videoId: urlParameters.get("v"),
+        });
+    }
+});
 
 
 // createAlarm();

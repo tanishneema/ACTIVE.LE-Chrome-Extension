@@ -1,0 +1,198 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  max-height: 200px;
+}
+
+body {
+  max-height: 200px;
+  height: 200px;
+  min-height: 200px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  background: #1d2b3a;
+  color: #00dfc4;
+  padding: 5px;
+  overflow: hidden;
+}
+
+h1 {
+  font-size: 2.5em;
+  margin: 5px 0 5px 0;
+  font-weight: 500;
+}
+
+h5 {
+  color: #00dfc4;
+  text-align: left;
+  font-size: 1.2em;
+  margin: 10px 0 10px 10px;
+  font-weight: 100;
+}
+
+hr {
+  border: none;
+  border-top: 2px solid #00dfc4;
+}
+
+#cp input,
+#pf input {
+  margin: 0 0 10px 0;
+  width: 70%;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: #1d2b3a;
+  border-radius: 5px;
+  outline: none;
+  color: #00dfc4;
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+
+#define input {
+  margin: 0 0 10px 0;
+  width: 70%;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: #1d2b3a;
+  border-radius: 5px;
+  outline: none;
+  color: #00dfc4;
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+
+#define button {
+  transform: translateX(59px);
+}
+
+#subname {
+  margin: 0 0 10px 0;
+  width: 70%;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: #1d2b3a;
+  border-radius: 5px;
+  outline: none;
+  color: #00dfc4;
+  font-size: 1em;
+  margin-bottom: 10px;
+  color: #ff00004d;
+}
+
+#definetime {
+  text-align: left;
+  color: #00dfc4;
+  font-size: 1em;
+  margin-bottom: 10px;
+  margin-left: 20px;
+}
+
+#definetime #radiocheck {
+  transform: translateX(-90px);
+}
+
+#definetime button {
+  width: 95%;
+  margin-top: 10px;
+}
+
+#radiocheck {
+  text-align: left;
+}
+
+#radiocheck input {
+  margin: 0 0 10px 35px;
+  height: 10px;
+}
+
+#radiocheck label {
+  margin: 0 0 0 20px;
+  padding: 0 0 10px 0;
+  font-size: 1em;
+  width: 120px;
+  display: inline-block;
+}
+
+#radiocheck input:hover,
+#radiocheck label:hover {
+  cursor: pointer;
+}
+
+div button {
+  width: 70%;
+  color: black;
+  text-decoration: solid;
+  font-weight: 250;
+  font-size: 15px;
+  padding: 8px;
+  margin: 5px 0;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  margin: 0 0 15px 0;
+}
+
+div button:hover,
+div button:active,
+div button:focus {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+  color: #00dfc4;
+}
+
+#pp {
+  text-align: left;
+  margin-left: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+  padding: 10px;
+  max-height: 200px;
+  height: 200px;
+  min-height: 200px;
+  overflow: auto;
+  width: 290px;
+}
+
+::-webkit-scrollbar {
+  width: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #00dfc4;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+#first,
+#second,
+#third,
+#pf,
+#define,
+#definetime,
+#subName {
+  display: none;
+}
+
+#clearhistory {
+  margin-top: 15px;
+  margin-bottom: 20px;
+  width: 75%;
+}

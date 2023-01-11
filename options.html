@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Opiton Page</title>
+    <link rel="stylesheet" href="options.css" type="text/css" />
+  </head>
+  <body>
+    <h1><u>Options Page</u></h1>
+    <div id="first">
+      <div id="define">
+        <input
+          type="text"
+          placeholder="Name"
+          required="required"
+          id="nameInput"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          required="required"
+          id="passInput"
+        />
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          required="required"
+          id="conPassInput"
+        />
+        <input
+          type="text"
+          placeholder="Security Question"
+          required="required"
+          id="secque"
+        />
+        <input type="text" placeholder="Answer" required="required" id="ans" />
+        <button id="subName">Submit</button>
+      </div>
+      <div id="definetime">
+        <h5>Block websites</h5>
+        <div id="radiocheck">
+          <input
+            type="radio"
+            id="all"
+            name="rate1"
+            value="all"
+            checked="checked"
+          />
+          <label for="all">All Time</label><br />
+          <input type="radio" id="study" name="rate1" value="study" />
+          <label for="study">During Study Hours</label><br />
+          <input type="radio" id="schedule" name="rate1" value="schedule" />
+          <label for="schedule">According to Schedule</label><br />
+          <input type="radio" id="never" name="rate1" value="never" />
+          <label for="never">Never</label><br />
+        </div>
+        <button id="savetime1">Save</button>
+      </div>
+    </div>
+
+    <div id="second">
+      <div id="cp">
+        <h5>→ Change Password</h5>
+        <input
+          type="password"
+          placeholder="Old Password"
+          required="required"
+          id="passInput1"
+        />
+        <input
+          type="password"
+          placeholder="New Password"
+          required="required"
+          id="passInput2"
+        />
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          required="required"
+          id="passInput3"
+        />
+        <button id="subName1">Submit</button>
+        <hr />
+      </div>
+      <div>
+        <h5>→ Change Timming</h5>
+        <div id="radiocheck">
+          <input type="radio" id="all1" name="rate" value="all" />
+          <label for="all1" id="alll">All Time</label>
+          <input type="radio" id="study1" name="rate" value="study" class="r2" />
+          <label for="study1">During Study Hours</label><br />
+          <input type="radio" id="schedule1" name="rate" value="schedule" />
+          <label for="schedule1">According to Schedule</label>
+          <input type="radio" id="never1" name="rate" value="never" class="r2"/>
+          <label for="never1">Never</label><br />
+        </div>
+        <button id="savetime">Save</button>
+      </div>
+      <div id="pf">
+        <hr />
+        <h5>→ Private Folder</h5>
+        <input
+          type="password"
+          placeholder="Password"
+          required="required"
+          id="openpass"
+        />
+        <button id="openhistory">Open</button>
+      </div>
+    </div>
+    <div id="third">
+      <h5>→ History</h5>
+      <div id="pp"></div>
+      <button id="clearhistory">Clear</button>
+    </div>
+    <script type="text/javascript" src="options.js" defer></script>
+  </body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>-
+    <div id="optionbar">
+      <button id="reset"></button>
+      <button id="fpassword"></button>
+      <button id="option"></button>
+    </div>
+    <h1><u>Study Planner</u></h1>
+    <div id="intro">
+      <input
+        type="text"
+        placeholder="Name"
+        required="required"
+        id="openpass"
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        required="required"
+        id="passInput"
+      />
+      <input
+        type="password"
+        placeholder="Confirm Password"
+        required="required"
+        id="conPassInput"
+      />
+      <input
+        type="text"
+        placeholder="Security Question"
+        required="required"
+        id="secque"
+      />
+      <input type="text" placeholder="Answer" required="required" id="ans" />
+
+      <button id="subName">Submit</button>
+    </div>
+
+    <div id="timming">
+      <h3>Block websites</h3>
+      <div id="radiocheck">
+        <input
+          type="radio"
+          checked="checked"
+          id="all"
+          name="rate"
+          value="all"
+        />
+        <label for="all">All Time</label><br />
+        <input type="radio" id="study" name="rate" value="study" />
+        <label for="study">During Study Hours</label><br />
+        <input type="radio" id="schedule" name="rate" value="schedule" />
+        <label for="schedule">According to Schedule</label>
+        <input type="radio" id="never" name="rate" value="never" />
+        <label for="all">Never</label><br />
+        <button id="savetime">Save</button>
+      </div>
+    </div>
+
+    <div id="working">
+      <p id="greet"></p>
+      <div class="input">
+        <input
+          type="number"
+          placeholder="Time"
+          required="required"
+          id="hours"
+        />
+        <button id="add">Set Reminder</button>
+        <button id="remove">Stop</button>
+      </div>
+    </div>
+    <div class="container">
+      <div>
+        <div class="title">
+          <hr />
+          Bookmarks
+        </div>
+        <div class="bookmarks" id="bookmarks"></div>
+      </div>
+    </div>
+    <script type="text/javascript" src="index.js" defer></script>
+    <script type="module" src="popup.js" defer></script>
+  </body>
+</html> -->

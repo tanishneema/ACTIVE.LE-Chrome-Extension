@@ -12,6 +12,10 @@
         "alarms",
         "notifications"
     ],
+    "options_ui": {
+        "page": "options.html",
+        "open_in_tab": false
+    },
     "host_permissions": [
         "<all_urls>"
     ],
@@ -49,6 +53,19 @@
             ],
             "js": [
                 "content.js"
+            ]
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "assets/bookmark.png",
+                "assets/play.png",
+                "assets/delete.png",
+                "assets/save.png"
+            ],
+            "matches": [
+                "https://*.youtube.com/*"
             ]
         }
     ],

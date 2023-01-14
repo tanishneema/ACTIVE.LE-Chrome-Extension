@@ -2,7 +2,7 @@ let add = document.location.href;
 let data = [];
 let date = new Date();
 
-console.log(add);
+// console.log(add +"this is the website link");
 // console.log("content script");
 chrome.storage.sync.get(["time"], function (r) {
     if (r.time > 0) {
@@ -224,7 +224,7 @@ function wordSelector() {
         node.style.padding = "1px";
         node.style.fontSize = `${size}px`;
         // node.style.transform = `translate(${oRect.x},${oRect.y})`;
-        // var url = `TEMPORARY/${selectedText}`;
+        // var url = `https://api.wordnik.com/v4/word.json/${selectedText}/definitions?limit=5&includeRelated=false&sourceDictionaries=all&useCanonical=true&includeTags=false&api_key=${getAccessToken}`;
         var url = `https://api.wordnik.com/v4/word.json/${selectedText}/definitions?limit=5&includeRelated=false&sourceDictionaries=all&useCanonical=true&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5`;
         async function callingWordDesc(url) {
             const response = await fetch(url);
@@ -317,3 +317,122 @@ function wordSelector() {
     // }
     // })();
 }
+
+// Tracking Mouse for Movement
+window.addEventListener("mouseover", mouseMove);
+
+let d = new Date();
+function mouseMove() {
+    chrome.storage.sync.get(["s"], function (res) {
+        d = new Date();
+        let hour = d.getHours() + "";
+        let min = d.getMinutes() + "";
+        let sec = d.getSeconds() + "";
+        hour = hour.length > 1 ? hour : "0" + hour;
+        min = min.length > 1 ? min : "0" + min;
+        sec = sec.length > 1 ? sec : "0" + sec;
+        // let s = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+        let s = hour + ":" + min + ":" + sec;
+        // console.log(s);
+        // console.log("0");
+        // if(s.split(":")[2] > (os.split(":")[2] + 5)){}
+        if (res.s === undefined) {
+            // console.log("1");
+            chrome.storage.sync.set({ s: s });
+        }
+        else {
+            // console.log("2");
+            let os = res.s;
+            // console.log(s + " ", os);
+            // console.log(s + " " + os);
+            // console.log(parseInt(os.split(":")[2]) + 5);
+            if (s.split(":")[2] >= (parseInt(os.split(":")[2]) + 6)) {
+                // console.log("3");
+                chrome.storage.sync.set({ s: s });
+            }
+            else if (s.split(":")[1] > os.split(":")[1]) {
+                // console.log("4");
+                chrome.storage.sync.set({ s: s });
+            }
+            else if (s.split(":")[0] !== os.split(":")[0]) {
+                // console.log("5");
+                chrome.storage.sync.set({ s: s });
+            } else {
+                console.log("not 5 sec");
+            }
+            // if ((s.split(":")[2] > (os.split(":")[2] + 5) || (s.split(":")[1] > (os.split(":")[1]))) && s.split(":")[1] < (os.split(":")[1] + 1)) {
+            //     chrome.storage.sync.set({ s: s });
+            //     // chrome.storage.sync.set({ s: s });
+            //     console.log("chaning");
+            // } else {
+            //     console.log("Moving");
+            // }
+        }
+    });
+    // console.log(s);
+    // console.log(s.split(":")[0]);
+    // console.log(s.split(":")[1]);
+    // console.log(s.split(":")[2]);
+    // console.log("Moved");
+    // console.log(d.getHours());
+    // console.log(d.getMinutes());
+    // console.log(d.getSeconds());
+}
+
+var intervalId = window.setInterval(function () {
+    console.log("called 111");
+    // window.alert = function () { };
+    // driver.switchTo().alert().dismiss();
+    // window.alert = () => false;
+    // if(window.alert===true){
+    //     console.log("t");
+    // }else{
+    //     console.log("f");
+    // }
+    console.log(add);
+    console.log("this is link");
+    if (add.indexOf("youtube") == -1) {
+        console.log("not youtube");
+        chrome.storage.sync.get(["s"], function (res) {
+            if (res.s === undefined) {
+                console.log("not found");
+            }
+            else {
+                chrome.storage.sync.get(["time"], function (r) {
+                    if (r.time === undefined);
+                    else if (r.time > 0) {
+                        console.log("00");
+                        let os = res.s;
+                        d = new Date();
+                        let hour = d.getHours() + "";
+                        let min = d.getMinutes() + "";
+                        let sec = d.getSeconds() + "";
+                        hour = hour.length > 1 ? hour : "0" + hour;
+                        console.log(d.getSeconds());
+                        min = min.length > 1 ? min : "0" + min;
+                        sec = sec.length > 1 ? sec : "0" + sec;
+                        let s = hour + ":" + min + ":" + sec;
+                        if (s.split(":")[0] !== os.split(":")[0]) {
+                            chrome.storage.sync.set({ s: s });
+                            console.log("Wake up");
+                            alert("wake up");
+                            console.log("01");
+                            console.log(s + " " + os + "1111");
+                            window.close();
+                        }
+                        else if (s.split(":")[1] >= (parseInt(os.split(":")[1]) + 5)) {
+                            chrome.storage.sync.set({ s: s });
+                            console.log("Wake up");
+                            window.close();
+                            alert("wake up");
+                            console.log("02");
+                            console.log(s + " " + os + "1111");
+                        }
+                    }
+                })
+            }
+        });
+    }
+}, 30000);
+// chrome.storage.sync.set({ s: "00:00:31" });
+// chrome.storage.sync.get(["time"], function (res) {

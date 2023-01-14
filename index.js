@@ -18,12 +18,19 @@
 
 chrome.storage.sync.get(["name"], function (result) {
     if (result.name === undefined) {
+        document.getElementById("timming").style.display = "none";
+        document.getElementById("intro").style.display = "block";
+        // document.getElementById("optionbar").style.display = "none";
+        document.getElementById("working").style.display = "none";
     } else {
         chrome.storage.sync.get(["rate"], function (res) {
             if (res.rate === undefined) {
+                // document.getElementById("optionbar").style.display = "none";
                 document.getElementById("timming").style.display = "block";
                 document.getElementById("intro").style.display = "none";
+                document.getElementById("working").style.display = "none";
             } else {
+                // document.getElementById("optionbar").style.display = "inline-block";
                 document.getElementById("intro").style.display = "none";
                 document.getElementById("timming").style.display = "none";
                 document.getElementById("reset").style.display = "inline-block";
@@ -261,21 +268,23 @@ chrome.storage.sync.get(["time"], function (result) {
 document.getElementById('reset').addEventListener("click", resetting);
 
 function resetting() {
-    let pass = prompt('Enter Password');
     chrome.storage.sync.get(["password"], function (result) {
         if (result.password === undefined) {
-            alert("Something went wrong.");
-            chrome.storage.sync.clear();
-            // chrome.runtime.reload();
-            window.close();
-        }
-        if (result.password === pass) {
-            chrome.storage.sync.clear();
-            // chrome.runtime.reload();
-            window.close();
+            // alert("Something went wrong.");
+            // chrome.storage.sync.clear();
+            // // chrome.runtime.reload();
+            // window.close();
         }
         else {
-            alert("Wrong Password");
+            let pass = prompt('Enter Password');
+            if (result.password === pass) {
+                chrome.storage.sync.clear();
+                // chrome.runtime.reload();
+                window.close();
+            }
+            else {
+                alert("Wrong Password");
+            }
         }
         // change(result.time);
     });
@@ -287,17 +296,19 @@ document.getElementById('fpassword').addEventListener("click", passForgot);
 
 function passForgot() {
     chrome.storage.sync.get(["question"], function (result) {
-        let ans = prompt("Question: " + result.question);
-        chrome.storage.sync.get(["answer"], function (res) {
-            if (res.answer === ans) {
-                chrome.storage.sync.clear();
-                // chrome.runtime.reload();
-                window.close();
-            } else {
-                alert("Wrong Answer");
-            }
-        });
-
+        if (result.question === undefined);
+        else {
+            let ans = prompt("Question: " + result.question);
+            chrome.storage.sync.get(["answer"], function (res) {
+                if (res.answer === ans) {
+                    chrome.storage.sync.clear();
+                    // chrome.runtime.reload();
+                    window.close();
+                } else {
+                    alert("Wrong Answer");
+                }
+            });
+        }
     });
     // let bar = confirm('Confirm or deny');
     // console.log(foo, bar);
@@ -310,25 +321,328 @@ function passForgot() {
 document.getElementById('option').addEventListener("click", optionpage);
 
 function optionpage() {
+    chrome.storage.sync.get(["password"], function (result) {
+        if (result.password === undefined) {
+            // alert("Something went wrong.");
+            // chrome.storage.sync.clear();
+            // // chrome.runtime.reload();
+            // window.close();
+        } else {
+            let pass = prompt('Enter Password');
+            if (result.password === pass) {
+                chrome.runtime.openOptionsPage();
+                // chrome.storage.sync.clear();
+                // chrome.runtime.reload();
+                window.close();
+            }
+            else {
+                alert("Wrong Password");
+            }
+        }
+        // change(result.time);
+    });
     // chrome.storage.sync.clear();
     // chrome.runtime.reload();
-    chrome.runtime.openOptionsPage();
 }
 
 // Setting up when to block websites
 document.getElementById('savetime').addEventListener("click", blocking);
 
 function blocking() {
+    console.log("saving");
     let rate = document.querySelector('input[name="rate"]:checked').value;
     chrome.storage.sync.set({ rate: rate }, function () {
         // chrome.runtime.reload();
-        window.close();
         document.getElementById("timming").style.display = "none";
+        // document.getElementById("optionbar").style.display = "inline-block";
         document.getElementById("reset").style.display = "inline-block";
         document.getElementById("fpassword").style.display = "inline-block";
         document.getElementById("option").style.display = "inline-block";
         document.getElementById("working").style.display = "block";
         document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
+        // window.close();
         // alert(rate);
+    });
+}
+
+// Footer
+//     -> ToDo List
+document.getElementById('link0').addEventListener("click", toDo);
+
+function toDo() {
+    document.getElementById("working").style.display = "none";
+    document.getElementById("heading").style.display = "none";
+    document.getElementById("container").style.display = "none";
+    document.getElementById("intro").style.display = "none";
+    document.getElementById("timming").style.display = "none";
+    document.getElementById("contactI").style.display = "none";
+    document.getElementById("aboutI").style.display = "none";
+    document.getElementById("Info").style.display = "block";
+    document.getElementById("toDoI").style.display = "block";
+    document.getElementById("back").style.display = "inline-block";
+}
+
+//     -> About
+document.getElementById('link1').addEventListener("click", about);
+
+function about() {
+    document.getElementById("working").style.display = "none";
+    document.getElementById("heading").style.display = "none";
+    document.getElementById("container").style.display = "none";
+    document.getElementById("intro").style.display = "none";
+    document.getElementById("timming").style.display = "none";
+    document.getElementById("contactI").style.display = "none";
+    document.getElementById("toDoI").style.display = "none";
+    document.getElementById("Info").style.display = "block";
+    document.getElementById("aboutI").style.display = "block";
+    document.getElementById("back").style.display = "inline-block";
+}
+
+//     -> Contact
+document.getElementById('link2').addEventListener("click", contact);
+
+function contact() {
+    document.getElementById("working").style.display = "none";
+    document.getElementById("heading").style.display = "none";
+    document.getElementById("container").style.display = "none";
+    document.getElementById("intro").style.display = "none";
+    document.getElementById("timming").style.display = "none";
+    document.getElementById("toDoI").style.display = "none";
+    document.getElementById("aboutI").style.display = "none";
+    document.getElementById("Info").style.display = "block";
+    document.getElementById("contactI").style.display = "block";
+    document.getElementById("back").style.display = "inline-block";
+}
+
+//     -> Back Button
+document.getElementById('back').addEventListener("click", back);
+
+function back() {
+    document.getElementById("aboutI").style.display = "none";
+    document.getElementById("Info").style.display = "none";
+    document.getElementById("contactI").style.display = "none";
+    document.getElementById("back").style.display = "none";
+
+    chrome.storage.sync.get(["name"], function (result) {
+        if (result.name === undefined) {
+            // document.getElementById("optionbar").style.display = "none";
+            document.getElementById("timming").style.display = "none";
+            document.getElementById("heading").style.display = "block";
+            document.getElementById("working").style.display = "none";
+            document.getElementById("intro").style.display = "block";
+        } else {
+            chrome.storage.sync.get(["rate"], function (res) {
+                if (res.rate === undefined) {
+                    // document.getElementById("optionbar").style.display = "none";
+                    document.getElementById("heading").style.display = "block";
+                    document.getElementById("timming").style.display = "block";
+                    document.getElementById("intro").style.display = "none";
+                    document.getElementById("working").style.display = "none";
+                } else {
+                    // document.getElementById("optionbar").style.display = "inline-block";
+                    document.getElementById("heading").style.display = "block";
+                    document.getElementById("intro").style.display = "none";
+                    document.getElementById("timming").style.display = "none";
+                    document.getElementById("reset").style.display = "inline-block";
+                    document.getElementById("fpassword").style.display = "inline-block";
+                    document.getElementById("option").style.display = "inline-block";
+                    document.getElementById("working").style.display = "block";
+                    document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
+                    // alert("Wrong Answer");
+                }
+            });
+            // document.getElementById("reset").style.display = "inline-block";
+            // document.getElementById("fpassword").style.display = "inline-block";
+            // document.getElementById("option").style.display = "inline-block";
+            // document.getElementById("working").style.display = "block";
+            // document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
+        }
+        // console.log(result);
+    });
+}
+
+// To-Do List
+window.addEventListener('load', () => {
+    addTodos();
+    const form = document.querySelector("#new-task-form");
+    const input = document.querySelector("#new-task-input");
+    const list_el = document.querySelector("#tasks");
+
+    form.addEventListener('submit', (e) => {
+        let list = [];
+        const task = input.value;
+        // console.log("222");
+
+        storeToDos(task);
+        e.preventDefault();
+
+        const task_el = document.createElement('div');
+        task_el.classList.add('task');
+
+        const task_content_el = document.createElement('div');
+        task_content_el.classList.add('content');
+
+        task_el.appendChild(task_content_el);
+
+        const task_input_el = document.createElement('input');
+        task_input_el.classList.add('text');
+        task_input_el.type = 'text';
+        task_input_el.value = task;
+        task_input_el.setAttribute('readonly', 'readonly');
+
+        task_content_el.appendChild(task_input_el);
+
+        const task_actions_el = document.createElement('div');
+        task_actions_el.classList.add('actions');
+
+        const task_edit_el = document.createElement('button');
+        task_edit_el.classList.add('edit');
+        task_edit_el.innerText = 'Edit';
+
+        const task_delete_el = document.createElement('button');
+        task_delete_el.classList.add('delete');
+        task_delete_el.innerText = 'Delete';
+
+        task_actions_el.appendChild(task_edit_el);
+        task_actions_el.appendChild(task_delete_el);
+
+        task_el.appendChild(task_actions_el);
+
+        list_el.appendChild(task_el);
+
+        input.value = '';
+
+        task_edit_el.addEventListener('click', (e) => {
+            if (task_edit_el.innerText.toLowerCase() == "edit") {
+                task_edit_el.innerText = "Save";
+                task_input_el.removeAttribute("readonly");
+                task_input_el.focus();
+                removeToDos(task_input_el.value);
+                // console.log(task_input_el.value);
+            } else {
+                task_edit_el.innerText = "Edit";
+                task_input_el.setAttribute("readonly", "readonly");
+                // console.log(task_input_el.value);
+                storeToDos(task_input_el.value);
+            }
+        });
+
+        task_delete_el.addEventListener('click', (e) => {
+            list_el.removeChild(task_el);
+            // console.log(task_input_el.value);
+            removeToDos(task_input_el.value);
+        });
+    });
+});
+// });
+
+function storeToDos(task) {
+    chrome.storage.sync.get(["todoN"], function (res) {
+        let list = [];
+        if (res.todoN === undefined || res.todoN === 0) {
+            list[0] = task;
+            // console.log("object");
+            chrome.storage.sync.set({ todoN: 1, todos: list }, function () { });
+        } else {
+            var index = res.todoN;
+            chrome.storage.sync.get(["todos"], function (result) {
+                // console.log("111");
+                list = result.todos;
+                list[index] = task;
+                chrome.storage.sync.set({ todoN: index + 1, todos: list }, function () { });
+            });
+        }
+    });
+}
+
+function removeToDos(task) {
+    chrome.storage.sync.get(["todoN"], function (res) {
+        chrome.storage.sync.get(["todos"], function (result) {
+            let list = result.todos;
+            const i = list.indexOf(task);
+            if (i > -1) { // only splice array when item is found
+                list.splice(index, 1); // 2nd parameter means remove one item only
+            }
+            // array = [2, 9]
+            // console.log(array);
+            var index = res.todoN;
+            // console.log("111");
+            // list = result.todos;
+            // list[index] = task;
+            chrome.storage.sync.set({ todoN: index - 1, todos: list }, function () { });
+        });
+
+    });
+}
+
+function addTodos() {
+    chrome.storage.sync.get(["todoN"], function (res) {
+        if (res.todoN === undefined || res.todoN === 0) {
+            document.getElementById("taskList").style.display = "none";
+        }
+        else {
+            chrome.storage.sync.get(["todos"], function (result) {
+                const list_el = document.querySelector("#tasks");
+                let list = result.todos;
+                let index = res.todoN;
+                for (let i = 0; i < index; i++) {
+                    const task = list[i];
+                    const task_el = document.createElement('div');
+                    task_el.classList.add('task');
+
+                    const task_content_el = document.createElement('div');
+                    task_content_el.classList.add('content');
+
+                    task_el.appendChild(task_content_el);
+
+                    const task_input_el = document.createElement('input');
+                    task_input_el.classList.add('text');
+                    task_input_el.type = 'text';
+                    task_input_el.value = task;
+                    task_input_el.setAttribute('readonly', 'readonly');
+
+                    task_content_el.appendChild(task_input_el);
+
+                    const task_actions_el = document.createElement('div');
+                    task_actions_el.classList.add('actions');
+
+                    const task_edit_el = document.createElement('button');
+                    task_edit_el.classList.add('edit');
+                    task_edit_el.innerText = 'Edit';
+
+                    const task_delete_el = document.createElement('button');
+                    task_delete_el.classList.add('delete');
+                    task_delete_el.innerText = 'Delete';
+
+                    task_actions_el.appendChild(task_edit_el);
+                    task_actions_el.appendChild(task_delete_el);
+
+                    task_el.appendChild(task_actions_el);
+
+                    list_el.appendChild(task_el);
+
+                    task_edit_el.addEventListener('click', (e) => {
+                        if (task_edit_el.innerText.toLowerCase() == "edit") {
+                            task_edit_el.innerText = "Save";
+                            task_input_el.removeAttribute("readonly");
+                            task_input_el.focus();
+                            removeToDos(task_input_el.value);
+                            // console.log(task_input_el.value);
+                        } else {
+                            task_edit_el.innerText = "Edit";
+                            task_input_el.setAttribute("readonly", "readonly");
+                            // console.log(task_input_el.value);
+                            storeToDos(task_input_el.value);
+                        }
+                    });
+
+                    task_delete_el.addEventListener('click', (e) => {
+                        list_el.removeChild(task_el);
+                        // console.log(task_input_el.value);
+                        removeToDos(task_input_el.value);
+                    });
+                }
+            });
+        }
     });
 }

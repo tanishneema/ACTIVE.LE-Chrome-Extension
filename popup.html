@@ -7,14 +7,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
+
   <body>
     <div id="optionbar">
+      <!-- <button id="back">⬅</button> -->
+      <button id="back">←</button>
       <button id="reset"></button>
       <button id="fpassword"></button>
       <button id="option"></button>
+      <div id="menu">
+        <span>▼</span>
+        <div class="dropdown-content">
+          <a id="link0">Todo List</a>
+          <a id="link1">About</a>
+          <a id="link2">Contact</a>
+          <a id="link3">Settings</a>
+        </div>
+      </div>
     </div>
-    <h1><u>Study Planner</u></h1>
+
+    <h1 id="heading"><u>Study Planner</u></h1>
+
     <div id="intro">
+      <!-- <br />
+      <hr />
+      <br /> -->
+      <h3>Information</h3>
       <input
         type="text"
         placeholder="Name"
@@ -80,8 +98,8 @@
         <button id="remove">Stop</button>
       </div>
     </div>
-    <!-- <hr /> -->
-    <div class="container">
+
+    <div class="container" id="container">
       <div>
         <div class="title">
           <hr />
@@ -90,6 +108,67 @@
         <div class="bookmarks" id="bookmarks"></div>
       </div>
     </div>
+
+    <div id="Info">
+      <div id="aboutI">
+        <h3># About</h3>
+        <p>
+          Active.le stands for Active Learning. The Active.le Chrome Extension
+          is an Extension that helps students stay organised and on track in
+          there studies. <br /><br />It provides:- <br />&emsp; → Parental
+          Control <br />&emsp; → Visited History <br />&emsp; → Limits
+          Surfing<br />&emsp; → Notification/ Reminder.
+        </p>
+      </div>
+      <div id="contactI">
+        <h3># Contact Info</h3>
+        <p>Tanish Neema</p>
+      </div>
+      <div id="toDoI">
+        <header>
+          <h1>ToDo List</h1>
+          <form id="new-task-form">
+            <input
+              type="text"
+              name="new-task-input"
+              id="new-task-input"
+              placeholder="What do you have planned?"
+            />
+            <input type="submit" id="new-task-submit" value="Add task" />
+          </form>
+        </header>
+        <main>
+          <div class="task-list" id="taskList">
+            <h2>Tasks</h2>
+
+            <div id="tasks">
+              <!-- <div class="task">
+                <div class="content">
+                  <input 
+                    type="text" 
+                    class="text" 
+                    value="A new task"
+                    readonly>
+                </div>
+                <div class="actions">
+                  <button class="edit">Edit</button>
+                  <button class="delete">Delete</button>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- <div id="footer">
+      <a id="link1">Docs</a>
+      <a id="link2">About</a>
+      <a id="link3">Contact</a>
+      <a id="link4">Follow</a>
+      <a id="link5">Setting</a>
+    </div> -->
+
     <script type="text/javascript" src="index.js" defer></script>
     <script type="module" src="popup.js" defer></script>
   </body>

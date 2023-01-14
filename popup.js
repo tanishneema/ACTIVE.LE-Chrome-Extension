@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   } else {
     const container = document.getElementsByClassName("container")[0];
-
+    document.getElementById("container").style.display = "none";
     container.innerHTML = '<div class="title"></div>';
   }
 });

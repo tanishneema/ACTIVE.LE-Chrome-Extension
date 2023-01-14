@@ -22,21 +22,7 @@
     "icons": {
         "128": "assets/logo.png",
         "48": "assets/logo.png",
-        "16": "assets/logo.png",
-        "96": "assets/logo.png",
-        "57": "assets/logo.png",
-        "72": "assets/logo.png",
-        "60": "assets/logo.png",
-        "76": "assets/logo.png",
-        "114": "assets/logo.png",
-        "120": "assets/logo.png",
-        "144": "assets/logo.png",
-        "152": "assets/logo.png",
-        "180": "assets/logo.png",
-        "192": "assets/logo.png",
-        "256": "assets/logo.png",
-        "384": "assets/logo.png",
-        "512": "assets/logo.png"
+        "16": "assets/logo.png"
     },
     "background": {
         "service_worker": "background.js"

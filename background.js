@@ -46,11 +46,15 @@ chrome.runtime.onInstalled.addListener((details) => {
 let studyTime = 1.0;
 
 // Water Reminder function
+function dr() {
+    chrome.alarms.create("Water", { delayInMinutes: 0.0 });
+}
+
 function drinkwater() {
     chrome.alarms.create("Water", { delayInMinutes: 30.0 });
 }
 
-drinkwater();
+dr();
 
 // let temp = true;
 // function notifer() {
@@ -138,7 +142,7 @@ chrome.runtime.onMessage.addListener(
                 createAlarm ? () => { return true; } : () => { return false; }
             );
             // t = 0;
-            drinkwater();
+            // drinkwater();
             sendResponse({ success: true });
         }
         else {

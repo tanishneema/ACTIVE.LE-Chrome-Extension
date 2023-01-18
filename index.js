@@ -37,7 +37,7 @@ chrome.storage.sync.get(["name"], function (result) {
                 document.getElementById("fpassword").style.display = "inline-block";
                 document.getElementById("option").style.display = "inline-block";
                 document.getElementById("working").style.display = "block";
-                document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
+                // document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
                 // alert("Wrong Answer");
             }
         });
@@ -156,25 +156,50 @@ function saveName() {
 
 // Working with alarms 
 let time = 0;
-let input = document.getElementById('hours');
+// let input = document.getElementById('hours');
 
-input.addEventListener('keyup', (e) => {
-    if (e.key === 'Enter')
-        setReminder();
-});
+// input.addEventListener('keyup', (e) => {
+//     if (e.key === 'Enter')
+//         setReminder();
+// });
 
 function change(time) {
     // console.log(time);
     // chrome.storage.sync.get(["time"], function (result) {
     //     console.log(result.time);
     // })
+    console.log("this is time" + time);
+    if (time == -1) {
+        document.getElementById("sr").style.display = "none";
+        document.getElementById("m45").style.display = "none";
+        document.getElementById("m60").style.display = "none";
+        document.getElementById("m90").style.display = "none";
+        document.getElementById("m120").style.display = "none";
+        document.getElementById("m150").style.display = "none";
+        document.getElementById("pause").innerText = "Resume";
+        const re = document.getElementById("remove");
+        re.style.display = "block";
+        const pa = document.getElementById("pause");
+        pa.style.display = "block";
+    } else {
+        document.getElementById("sr").style.display = "block";
+        document.getElementById("m45").style.display = "inline-block";
+        document.getElementById("m60").style.display = "inline-block";
+        document.getElementById("m90").style.display = "inline-block";
+        document.getElementById("m120").style.display = "inline-block";
+        document.getElementById("m150").style.display = "inline-block";
+    }
     if (time > 0) {
         const re = document.getElementById("remove");
         re.style.display = "block";
-        const ad = document.getElementById("add");
-        ad.style.display = "none";
-        const h = document.getElementById("hours");
-        h.style.display = "none";
+        const pa = document.getElementById("pause");
+        pa.style.display = "block";
+        const sr = document.getElementById("sr");
+        sr.innerHTML = "Add Time";
+        // const ad = document.getElementById("add");
+        // ad.style.display = "none";
+        // const h = document.getElementById("hours");
+        // h.style.display = "none";
         chrome.runtime.sendMessage({ time }, function (res) {
             // console.log(res);
         });
@@ -190,42 +215,133 @@ function change(time) {
             // console.log("w3");
         }, time * 60000);
         // console.log("w4");
-    } else {
+    } else if (time == 0) {
+        sr.innerHTML = "Set Time";
         // console.log("w5");
-        const ad = document.getElementById("add");
-        ad.style.display = "block";
-        const h = document.getElementById("hours");
-        h.style.display = "block";
+        // const ad = document.getElementById("add");
+        // ad.style.display = "block";
+        // const h = document.getElementById("hours");
+        // h.style.display = "block";
         const re = document.getElementById("remove");
         re.style.display = "none";
+        const pa = document.getElementById("pause");
+        pa.style.display = "none";
     }
 }
 
-document.getElementById('add').addEventListener("click", setReminder);
+// document.getElementById('add').addEventListener("click", setReminder);
+document.getElementById('m45').addEventListener("click", m45);
+document.getElementById('m60').addEventListener("click", m60);
+document.getElementById('m90').addEventListener("click", m90);
+document.getElementById('m120').addEventListener("click", m120);
+document.getElementById('m150').addEventListener("click", m150);
 
-function setReminder() {
-    time = parseInt(document.getElementById('hours').value);
-    document.getElementById('hours').value = "";
-    if (isNaN(time)) {
-        alert("Not a number.")
-        // } else if (time > 240) {
-        //     alert("Talk sense.")
-        // }
-        // else if (time < 25) {
-        //     alert("Let it be. Dont sit for study.")
+function m45() {
+    if (document.getElementById("sr").innerText === "Set Time") {
+        setReminder(45);
+        // console.log("it is set reminder");
     } else {
-        chrome.storage.sync.set({ time: time, number: 0, history: [] }, function () {
-            change(time);
-        });
-        // setTimeout(() => {
-        //     const ad = document.getElementById("add");
-        //     ad.style.display = "block";
-        //     h.style.display = "block";
-        //     const h = document.getElementById("hours");
-        //     const re = document.getElementById("remove");
-        //     re.style.display = "none";
-        // }, 5000);
+        addReminder(45);
     }
+}
+
+function m60() {
+    if (document.getElementById("sr").innerText === "Set Time") {
+        setReminder(60);
+        // console.log("it is set reminder");
+    } else {
+        addReminder(60);
+    }
+    // setReminder(60);
+}
+
+function m90() {
+    if (document.getElementById("sr").innerText === "Set Time") {
+        setReminder(90);
+        // console.log("it is set reminder");
+    } else {
+        addReminder(90);
+    }
+    // setReminder(90);
+}
+
+function m120() {
+    if (document.getElementById("sr").innerText === "Set Time") {
+        setReminder(120);
+        // console.log("it is set reminder");
+    } else {
+        addReminder(120);
+    }
+    // setReminder(120);
+}
+
+function m150() {
+    if (document.getElementById("sr").innerText === "Set Time") {
+        setReminder(150);
+        // console.log("it is set reminder");
+    } else {
+        addReminder(150);
+    }
+    // setReminder(150);
+}
+
+function setReminder(t) {
+    var d = new Date();
+    // console.log(d.getTime());
+    // console.log(d.getMilliseconds());
+    // console.log(d.getSeconds());
+    // console.log(d.getMinutes());
+    // console.log(d.getHours());
+    const now = d.getTime();
+    // console.log("t2");
+    // time = parseInt(document.getElementById('hours').value);
+    // document.getElementById('hours').value = "";
+    chrome.storage.sync.set({ time: t, at: now, number: 0, history: [] }, function () {
+        change(t);
+    });
+
+    // if (isNaN(time)) {
+    //     alert("Not a number.")
+    //     // } else if (time > 240) {
+    //     //     alert("Talk sense.")
+    //     // }
+    //     // else if (time < 25) {
+    //     //     alert("Let it be. Dont sit for study.")
+    // } else {
+    //     chrome.storage.sync.set({ time: time, number: 0, history: [] }, function () {
+    //         change(time);
+    //     });
+    //     // setTimeout(() => {
+    //     //     const ad = document.getElementById("add");
+    //     //     ad.style.display = "block";
+    //     //     h.style.display = "block";
+    //     //     const h = document.getElementById("hours");
+    //     //     const re = document.getElementById("remove");
+    //     //     re.style.display = "none";
+    //     // }, 5000);
+    // }
+}
+
+function addReminder(t) {
+    chrome.storage.sync.get(["at"], function (result) {
+        console.log(result.at);
+        var d = new Date();
+        var now = (d.getTime() - result.at) / 60000;
+        chrome.storage.sync.get(["time"], function (res) {
+            var newT = res.time - Math.floor(now) + t;
+            var time = 0;
+            chrome.runtime.sendMessage({ time }, function (res) { })
+            time = newT;
+            chrome.runtime.sendMessage({ time }, function (res) { })
+            chrome.storage.sync.set({ time: newT }, function () {
+                // change(time);
+            });
+        })
+        // console.log(now);
+        // console.log(now / 1000);
+        // console.log(now / 60000);
+    })
+
 }
 
 document.getElementById('remove').addEventListener("click", removeReminder);
@@ -233,7 +349,8 @@ document.getElementById('remove').addEventListener("click", removeReminder);
 function removeReminder() {
     chrome.storage.sync.get(["password"], function (result) {
         if (result.password === undefined) {
-            alert("Caught in some errors.");
+            // alert("Caught in some errors.");
+            chrome.storage.sync.clear();
         }
         else {
             let pass = prompt('Enter Password');
@@ -242,7 +359,7 @@ function removeReminder() {
                 chrome.storage.sync.set({ time: time }, function () {
                     change(time);
                 });
-                document.getElementById('hours').value = "";
+                // document.getElementById('hours').value = "";
                 chrome.runtime.sendMessage({ time }, function (res) {
                     // console.log(res);
                 });
@@ -254,6 +371,73 @@ function removeReminder() {
         // change(result.time);
     });
 
+}
+
+document.getElementById('pause').addEventListener("click", PRReminder);
+
+function PRReminder() {
+    if (document.getElementById("pause").innerText === "Pause") {
+        document.getElementById("pause").innerText = "Resume";
+        document.getElementById("sr").style.display = "none";
+        document.getElementById("m45").style.display = "none";
+        document.getElementById("m60").style.display = "none";
+        document.getElementById("m90").style.display = "none";
+        document.getElementById("m120").style.display = "none";
+        document.getElementById("m150").style.display = "none";
+        pauseReminder();
+    } else {
+        // console.log("object");
+        // console.log(document.getElementById("pause").innerText);
+        // console.log(document.getElementById("pause").innerHTML);
+        // console.log(document.getElementById("pause").value);
+        document.getElementById("sr").style.display = "block";
+        document.getElementById("pause").innerText = "Pause";
+        document.getElementById("m45").style.display = "inline-block";
+        document.getElementById("m60").style.display = "inline-block";
+        document.getElementById("m90").style.display = "inline-block";
+        document.getElementById("m120").style.display = "inline-block";
+        document.getElementById("m150").style.display = "inline-block";
+        resumeReminder();
+    }
+}
+
+function pauseReminder() {
+    chrome.storage.sync.get(["at"], function (result) {
+        // console.log(result.at);
+        var d = new Date();
+        var now = (d.getTime() - result.at) / 60000;
+        var result = Math.floor(now);
+        var r = parseInt(now);
+        // console.log("Tanish " + Math.floor(now));
+        // console.log("r  " + result + "  " + r);
+        chrome.storage.sync.get(["time"], function (res) {
+            // console.log("Neema " + res.time);
+            var newT = res.time - Math.floor(now);
+            var time = 0;
+            // console.log("TN " + newT + "   " + temp);
+            // console.log("not done");
+            chrome.runtime.sendMessage({ time }, function (r) { })
+            // console.log("object");
+            // chrome.runtime.sendMessage({ newT }, function (res) { })
+            chrome.storage.sync.set({ Ltime: newT, time: -1 }, function () {
+                // console.log("done");
+                // change(time);
+            });
+            // console.log("complete");
+        })
+    })
+
+}
+
+function resumeReminder() {
+    chrome.storage.sync.get(["Ltime"], function (result) {
+        var time = result.Ltime;
+        chrome.runtime.sendMessage({ time }, function (res) { })
+        var temp = 0;
+        chrome.storage.sync.set({ Ltime: temp, time: time }, function () {
+            change(time);
+        });
+    });
 }
 
 chrome.storage.sync.get(["time"], function (result) {
@@ -270,6 +454,7 @@ document.getElementById('reset').addEventListener("click", resetting);
 function resetting() {
     chrome.storage.sync.get(["password"], function (result) {
         if (result.password === undefined) {
+            chrome.storage.sync.clear();
             // alert("Something went wrong.");
             // chrome.storage.sync.clear();
             // // chrome.runtime.reload();
@@ -291,8 +476,8 @@ function resetting() {
     // chrome.runtime.openOptionsPage();
 }
 
-document.getElementById('fpassword').addEventListener("click", passForgot);
 // Forgot Password
+document.getElementById('fpassword').addEventListener("click", passForgot);
 
 function passForgot() {
     chrome.storage.sync.get(["question"], function (result) {
@@ -352,14 +537,14 @@ function blocking() {
     console.log("saving");
     let rate = document.querySelector('input[name="rate"]:checked').value;
     chrome.storage.sync.set({ rate: rate }, function () {
-        // chrome.runtime.reload();
-        document.getElementById("timming").style.display = "none";
+        chrome.runtime.reload();
+        // document.getElementById("timming").style.display = "none";
         // document.getElementById("optionbar").style.display = "inline-block";
-        document.getElementById("reset").style.display = "inline-block";
-        document.getElementById("fpassword").style.display = "inline-block";
-        document.getElementById("option").style.display = "inline-block";
-        document.getElementById("working").style.display = "block";
-        document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
+        // document.getElementById("reset").style.display = "inline-block";
+        // document.getElementById("fpassword").style.display = "inline-block";
+        // document.getElementById("option").style.display = "inline-block";
+        // document.getElementById("working").style.display = "block";
+        // document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
         // window.close();
         // alert(rate);
     });
@@ -447,7 +632,7 @@ function back() {
                     document.getElementById("fpassword").style.display = "inline-block";
                     document.getElementById("option").style.display = "inline-block";
                     document.getElementById("working").style.display = "block";
-                    document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
+                    // document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
                     // alert("Wrong Answer");
                 }
             });
@@ -501,7 +686,7 @@ window.addEventListener('load', () => {
 
         const task_delete_el = document.createElement('button');
         task_delete_el.classList.add('delete');
-        task_delete_el.innerText = 'Delete';
+        task_delete_el.innerText = 'Completed';
 
         task_actions_el.appendChild(task_edit_el);
         task_actions_el.appendChild(task_delete_el);
@@ -517,17 +702,22 @@ window.addEventListener('load', () => {
                 task_edit_el.innerText = "Save";
                 task_input_el.removeAttribute("readonly");
                 task_input_el.focus();
+                task_delete_el.innerText = "Delete";
                 removeToDos(task_input_el.value);
                 // console.log(task_input_el.value);
             } else {
                 task_edit_el.innerText = "Edit";
                 task_input_el.setAttribute("readonly", "readonly");
                 // console.log(task_input_el.value);
+                task_delete_el.innerText = "Completed";
                 storeToDos(task_input_el.value);
             }
         });
 
         task_delete_el.addEventListener('click', (e) => {
+            if (task_delete_el.innerText.toLowerCase() == "completed") {
+                alert("Hurray!! Good job done.🥳🎉🎊")
+            }
             list_el.removeChild(task_el);
             // console.log(task_input_el.value);
             removeToDos(task_input_el.value);
@@ -539,6 +729,7 @@ window.addEventListener('load', () => {
 function storeToDos(task) {
     chrome.storage.sync.get(["todoN"], function (res) {
         let list = [];
+        document.getElementById("taskList").style.display = "block";
         if (res.todoN === undefined || res.todoN === 0) {
             list[0] = task;
             // console.log("object");
@@ -566,6 +757,8 @@ function removeToDos(task) {
             // array = [2, 9]
             // console.log(array);
             var index = res.todoN;
+            if (index == 1)
+                document.getElementById("taskList").style.display = "none";
             // console.log("111");
             // list = result.todos;
             // list[index] = task;
@@ -612,7 +805,7 @@ function addTodos() {
 
                     const task_delete_el = document.createElement('button');
                     task_delete_el.classList.add('delete');
-                    task_delete_el.innerText = 'Delete';
+                    task_delete_el.innerText = 'Completed';
 
                     task_actions_el.appendChild(task_edit_el);
                     task_actions_el.appendChild(task_delete_el);
@@ -626,11 +819,13 @@ function addTodos() {
                             task_edit_el.innerText = "Save";
                             task_input_el.removeAttribute("readonly");
                             task_input_el.focus();
+                            task_delete_el.innerText = "Delete";
                             removeToDos(task_input_el.value);
                             // console.log(task_input_el.value);
                         } else {
                             task_edit_el.innerText = "Edit";
                             task_input_el.setAttribute("readonly", "readonly");
+                            task_delete_el.innerText = "Completed";
                             // console.log(task_input_el.value);
                             storeToDos(task_input_el.value);
                         }

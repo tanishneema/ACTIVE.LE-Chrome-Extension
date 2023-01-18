@@ -110,7 +110,19 @@ div button:focus {
   color: #00dfc4;
 }
 
-#remove {
+#m45,
+#m60,
+#m90,
+#m120,
+#m150 {
+  display: inline-block;
+  width: 50px;
+  padding: 10px 0px;
+  margin: 5px 5px 10px 5px;
+}
+
+#remove,
+#pause {
   width: 100%;
   display: none;
 }
@@ -302,11 +314,11 @@ p {
   display: none;
   position: absolute;
   border-radius: 6px;
-  height: 80px;
+  height: 75px;
   z-index: 1;
-  background-color: rgba(0, 0, 0, 1);
-  width: 70px;
-  padding: 0 6px;
+  background-color: black;
+  width: 75px;
+  padding: 0 8px;
   transform: translate(-55px, 0);
 }
 
@@ -334,7 +346,7 @@ a {
   /* display: flex; */
   /* position:fixed; */
   color: white;
-  margin: 5px 0;
+  /* margin: 5px 0; */
   /* padding-left: 4px;
   padding-right: 4px; */
   font-weight: 500;

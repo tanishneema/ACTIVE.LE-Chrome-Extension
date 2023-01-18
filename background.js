@@ -43,7 +43,7 @@ chrome.runtime.onInstalled.addListener((details) => {
 
 
 
-let studyTime = 1.0;
+// let studyTime = 1.0;
 
 // Water Reminder function
 function dr() {
@@ -75,7 +75,7 @@ dr();
 // }
 
 // Study Timer
-function createAlarm() {
+function createAlarm(time) {
     // try {
     //     chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     //         if (tab.url?.startsWith("chrome://")) return undefined;
@@ -97,7 +97,8 @@ function createAlarm() {
     //     console.log(e);
     // }
     // temp = 1;
-    chrome.alarms.create("Study", { delayInMinutes: studyTime });
+    console.log("bg js time" + time);
+    chrome.alarms.create("Study", { delayInMinutes: time });
     // notifer();
 }
 
@@ -147,8 +148,9 @@ chrome.runtime.onMessage.addListener(
         }
         else {
             // console.log("Placing Alarm");
-            studyTime = req.time * 1.0;
-            createAlarm();
+            var studyTime = req.time * 1.0;
+            console.log(studyTime);
+            createAlarm(studyTime);
             sendResponse({ success: true });
         }
     }

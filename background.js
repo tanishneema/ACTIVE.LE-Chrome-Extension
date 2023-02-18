@@ -75,7 +75,7 @@ dr();
 // }
 
 // Study Timer
-function createAlarm(time) {
+function  createAlarm(time) {
     // try {
     //     chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     //         if (tab.url?.startsWith("chrome://")) return undefined;
@@ -97,7 +97,7 @@ function createAlarm(time) {
     //     console.log(e);
     // }
     // temp = 1;
-    console.log("bg js time" + time);
+    console.log("bg js time " + time);
     chrome.alarms.create("Study", { delayInMinutes: time });
     // notifer();
 }
@@ -149,7 +149,7 @@ chrome.runtime.onMessage.addListener(
         else {
             // console.log("Placing Alarm");
             var studyTime = req.time * 1.0;
-            console.log(studyTime);
+            console.log("studyTime: "+studyTime);
             createAlarm(studyTime);
             sendResponse({ success: true });
         }
@@ -160,6 +160,7 @@ chrome.runtime.onMessage.addListener(
 chrome.alarms.onAlarm.addListener(function (alarm) {
     // console.log(alarm.name);
     if (alarm.name == "Study") {
+        console.log("Alarm received");
         chrome.notifications.create('Reminder', {
             type: 'basic',
             iconUrl: 'assets/logo.png',
@@ -167,7 +168,10 @@ chrome.alarms.onAlarm.addListener(function (alarm) {
             message: 'Achivement completed. You successfully completed the study task. Take a break.'
         }, function (notificationId) {
             // temp = false;
-            // console.log(notificationId);
+            chrome.storage.sync.set({ time: 0 }, function () {
+                // change(0);
+            });
+            console.log("Alarm completed");
         });
     }
 

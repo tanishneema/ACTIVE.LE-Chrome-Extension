@@ -168,7 +168,7 @@ function change(time) {
     // chrome.storage.sync.get(["time"], function (result) {
     //     console.log(result.time);
     // })
-    console.log("this is time" + time);
+    // console.log("this is time" + time);
     if (time == -1) {
         document.getElementById("sr").style.display = "none";
         document.getElementById("m45").style.display = "none";
@@ -189,6 +189,7 @@ function change(time) {
         document.getElementById("m120").style.display = "inline-block";
         document.getElementById("m150").style.display = "inline-block";
     }
+    console.log(time);
     if (time > 0) {
         const re = document.getElementById("remove");
         re.style.display = "block";
@@ -200,20 +201,37 @@ function change(time) {
         // ad.style.display = "none";
         // const h = document.getElementById("hours");
         // h.style.display = "none";
+        // console.log("Object going in backend");
         chrome.runtime.sendMessage({ time }, function (res) {
-            // console.log(res);
+            console.log("Response sent: " + res);
+            // console.log("Sent Response");
+            // if (res) {
+            //     time = 0;
+            // chrome.storage.sync.set({ time: time }, function () {
+            //     change(0);
+            // });
+            // console.log("w2");
+            // console.log("TRUE RES");
+            // } else {
+            // console.log("FALSE RES");
+            // }
+            // time = 0;
+            // chrome.storage.sync.set({ time: time }, function () {
+            //     // console.log("w2");
+            //     change(0);
+            // });
         });
+        // console.log("AFTER SENDING");
         // console.log("w0");
-        setTimeout(() => {
-            // console.log(time + "waiting");
-            // console.log("w1");
-            time = 0;
-            chrome.storage.sync.set({ time: time }, function () {
-                // console.log("w2");
-                change(0);
-            });
-            // console.log("w3");
-        }, time * 60000);
+        // setTimeout(() => {
+        //     // console.log(time + "waiting");
+        //     // console.log("w1");
+        //     time = 0;
+        //     chrome.storage.sync.set({ time: time }, function () {
+        //         // console.log("w2");
+        //         change(0);
+        //     // console.log("w3");
+        // }, time * 60000);
         // console.log("w4");
     } else if (time == 0) {
         sr.innerHTML = "Set Time";
@@ -238,10 +256,10 @@ document.getElementById('m150').addEventListener("click", m150);
 
 function m45() {
     if (document.getElementById("sr").innerText === "Set Time") {
-        setReminder(45);
+        setReminder(1);
         // console.log("it is set reminder");
     } else {
-        addReminder(45);
+        addReminder(1);
     }
 }
 
@@ -324,7 +342,7 @@ function setReminder(t) {
 
 function addReminder(t) {
     chrome.storage.sync.get(["at"], function (result) {
-        console.log(result.at);
+        // console.log(result.at);
         var d = new Date();
         var now = (d.getTime() - result.at) / 60000;
         chrome.storage.sync.get(["time"], function (res) {
@@ -534,7 +552,7 @@ function optionpage() {
 document.getElementById('savetime').addEventListener("click", blocking);
 
 function blocking() {
-    console.log("saving");
+    // console.log("saving");
     let rate = document.querySelector('input[name="rate"]:checked').value;
     chrome.storage.sync.set({ rate: rate }, function () {
         chrome.runtime.reload();
@@ -562,6 +580,7 @@ function toDo() {
     document.getElementById("timming").style.display = "none";
     document.getElementById("contactI").style.display = "none";
     document.getElementById("aboutI").style.display = "none";
+    document.getElementById("settingsI").style.display = "none";
     document.getElementById("Info").style.display = "block";
     document.getElementById("toDoI").style.display = "block";
     document.getElementById("back").style.display = "inline-block";
@@ -578,6 +597,7 @@ function about() {
     document.getElementById("timming").style.display = "none";
     document.getElementById("contactI").style.display = "none";
     document.getElementById("toDoI").style.display = "none";
+    document.getElementById("settingsI").style.display = "none";
     document.getElementById("Info").style.display = "block";
     document.getElementById("aboutI").style.display = "block";
     document.getElementById("back").style.display = "inline-block";
@@ -594,8 +614,26 @@ function contact() {
     document.getElementById("timming").style.display = "none";
     document.getElementById("toDoI").style.display = "none";
     document.getElementById("aboutI").style.display = "none";
+    document.getElementById("settingsI").style.display = "none";
     document.getElementById("Info").style.display = "block";
     document.getElementById("contactI").style.display = "block";
+    document.getElementById("back").style.display = "inline-block";
+}
+
+//     -> Settings
+document.getElementById('link3').addEventListener("click", settingsI);
+
+function settingsI() {
+    document.getElementById("working").style.display = "none";
+    document.getElementById("heading").style.display = "none";
+    document.getElementById("container").style.display = "none";
+    document.getElementById("intro").style.display = "none";
+    document.getElementById("timming").style.display = "none";
+    document.getElementById("toDoI").style.display = "none";
+    document.getElementById("aboutI").style.display = "none";
+    document.getElementById("contactI").style.display = "none";
+    document.getElementById("Info").style.display = "block";
+    document.getElementById("settingsI").style.display = "block";
     document.getElementById("back").style.display = "inline-block";
 }
 
@@ -606,6 +644,7 @@ function back() {
     document.getElementById("aboutI").style.display = "none";
     document.getElementById("Info").style.display = "none";
     document.getElementById("contactI").style.display = "none";
+    document.getElementById("settingsI").style.display = "none";
     document.getElementById("back").style.display = "none";
 
     chrome.storage.sync.get(["name"], function (result) {
@@ -841,3 +880,123 @@ function addTodos() {
         }
     });
 }
+
+// Change Blocked Page Set up
+chrome.storage.sync.get(["rate"], function (res) {
+    if (res.rate === undefined) {
+    } else {
+        // chrome.storage.sync.get(["number"], function (result) {
+        //     if (result.number === undefined || result.number === 0) {
+        //     } else {
+        //         document.getElementById("pf").style.display = "block";
+        //         // document.getElementById("second").style.display = "none";
+        //         // document.getElementById("third").style.display = "block";
+        //     }
+        // })
+        // console.log(res.rate);   
+        // console.log("this is the rate");
+        if (res.rate === "never")
+            document.getElementById("n1").checked = "true";
+        else if (res.rate === "all")
+            document.getElementById("a1").checked = "true";
+        else if (res.rate === "study")
+            document.getElementById("s1").checked = "true";
+        else if (res.rate === "schedule")
+            document.getElementById("sc1").checked = "true";
+    }
+});
+
+// Changing when to block websites
+document.getElementById('st').addEventListener("click", cb);
+
+function cb() {
+    // console.log("saving");
+    if (document.querySelector('input[name="crate"]:checked') == true) {
+        let rate = document.querySelector('input[name="crate"]:checked').value;
+        chrome.storage.sync.get(["password"], function (res) {
+            if (res.password != undefined) {
+                let pass = prompt("Enter password");
+                if (res.password == pass) {
+                    chrome.storage.sync.set({ rate: rate }, function () {
+                        // chrome.runtime.reload();
+                        back();
+                        // document.getElementById("timming").style.display = "none";
+                        // document.getElementById("optionbar").style.display = "inline-block";
+                        // document.getElementById("reset").style.display = "inline-block";
+                        // document.getElementById("fpassword").style.display = "inline-block";
+                        // document.getElementById("option").style.display = "inline-block";
+                        // document.getElementById("working").style.display = "block";
+                        // document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
+                        // window.close();
+                        // alert(rate);
+                    });
+                }
+            }
+        });
+        // console.log("object");
+    }
+}
+
+// Changing Theme
+document.getElementById('toggle').addEventListener("click", changeMode);
+
+function changeMode() {
+    chrome.storage.sync.get(["theme"], function (res) {
+        if (res.theme != undefined) {
+            if (res.theme == "dark") {
+                setLight();
+                // r.style.setProperty('--white', 'black');
+                // r.style.setProperty('--bdr', 'black');
+                chrome.storage.sync.set({ theme: "light" }, function () { });
+            } else {
+                setBlack();
+                // r.style.setProperty('--white', 'white');
+                // r.style.setProperty('--bdr', 'rgba(255, 255, 255, 0.25)');
+                chrome.storage.sync.set({ theme: "dark" }, function () { });
+            }
+        }
+        else {
+            // r.style.setProperty('--bg', '#f0ffff');
+            setLight();
+            chrome.storage.sync.set({ theme: "light" }, function () { });
+        }
+    });
+
+    // console.log(rs);
+    // Alert the value of the --blue variable
+    // alert("The value of --blue is: " + rs.getPropertyValue('--blue'));
+    // if(r)
+    // chrome.storage.sync.set({ theme: "white" }, function () { });
+    // var element = document.body;
+    // element.classList.toggle("dark-mode");
+}
+
+function setBlack() {
+    var r = document.querySelector(':root');
+    r.style.setProperty('--bg', '#1d2b3a');
+    r.style.setProperty('--white', 'white');
+    r.style.setProperty('--txt', 'white');
+    r.style.setProperty('--btn', 'rgba(255, 255, 255, 0.25)');
+    r.style.setProperty('--bthover', '#00dfc4');
+    r.style.setProperty('--nti', '#1d2b3a');
+}
+
+function setLight() {
+    var r = document.querySelector(':root');
+    r.style.setProperty('--bg', '#f0ffff');
+    r.style.setProperty('--white', '#00dfc4');
+    r.style.setProperty('--txt', 'black');
+    r.style.setProperty('--btn', '#00dfc4');
+    r.style.setProperty('--bthover', 'white');
+    r.style.setProperty('--nti', 'rgba(0, 223, 196,0.4)');
+    // r.style.setProperty('--bg', '#1d2b3a');
+}
+
+chrome.storage.sync.get(["theme"], function (res) {
+    if (res.theme != undefined) {
+        if (res.theme == "light") {
+            document.getElementById('toggle').checked = true;
+            setLight();
+        }
+    }
+});

@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- <script type="text/javascript" src="bjs.js"></script> -->
     <link rel="stylesheet" href="style.css" type="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
@@ -16,7 +17,7 @@
       <button id="fpassword"></button>
       <button id="option"></button>
       <div id="menu">
-        <span>▼</span>
+        <span id="dd">▼</span>
         <div class="dropdown-content">
           <a id="link0">Todo List</a>
           <a id="link1">About</a>
@@ -128,10 +129,12 @@
           Surfing<br />&emsp; → Notification/ Reminder.
         </p>
       </div>
+
       <div id="contactI">
         <h3># Contact Info</h3>
         <p>Tanish Neema</p>
       </div>
+
       <div id="toDoI">
         <header>
           <h1>ToDo List</h1>
@@ -148,14 +151,13 @@
         <main>
           <div class="task-list" id="taskList">
             <h2>Tasks</h2>
-
             <div id="tasks">
               <!-- <div class="task">
                 <div class="content">
                   <input 
-                    type="text" 
-                    class="text" 
-                    value="A new task"
+                  type="text" 
+                  class="text" 
+                  value="A new task"
                     readonly>
                 </div>
                 <div class="actions">
@@ -166,6 +168,36 @@
             </div>
           </div>
         </main>
+      </div>
+
+      <div id="settingsI">
+        <h1>Settings</h1>
+        <div id="cbt">
+          <h3>#Timming</h3>
+          <div id="rc">
+            <input type="radio" id="a1" name="crate" value="all" />
+            <label for="a1" id="a1">All Time</label>
+            <input type="radio" id="s1" name="crate" value="study" />
+            <label for="s1">During Study Hours</label><br />
+            <input type="radio" id="sc1" name="crate" value="schedule" />
+            <label for="sc1">According to Schedule</label>
+            <input type="radio" id="n1" name="crate" value="never" />
+            <label for="n1">Never</label><br />
+          </div>
+          <button id="st">Save</button>
+        </div>
+        <hr />
+        <div class="form-box">
+          <h3>#Theme</h3>
+          <div id="cntner">
+            <h4>Dark</h4>
+            <label class="switch">
+              <input type="checkbox" id="toggle" />
+              <span class="slider"></span>
+            </label>
+            <h4>Light</h4>
+          </div>
+        </div>
       </div>
     </div>
 

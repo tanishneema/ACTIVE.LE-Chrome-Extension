@@ -1,3 +1,16 @@
+// Blocking Offensive Words
+replaceText(document.body);
+
+function replaceText(element) {
+    if (element.hasChildNodes()) {
+        element.childNodes.forEach(replaceText);
+    } else if (element.nodeType === Text.TEXT_NODE) {
+        element.textContent = element.textContent.replace(/bitch/gi, "█████");
+        element.textContent = element.textContent.replace(/dog/gi, "█████");
+        element.textContent = element.textContent.replace(/porn/gi, "█████");
+    }
+}
+
 let add = document.location.href;
 let data = [];
 let date = new Date();
@@ -176,11 +189,13 @@ const getTime = t => {
 
 // Meaning of selected word
 window.addEventListener("mouseup", wordSelector);
-
+let timer = setTimeout(() => { }, 0);
 function wordSelector() {
     let check = document.getElementById("addedchild");
-    if (check)
+    if (check) {
+        clearTimeout(timer);
         document.body.removeChild(check);
+    }
     // console.log("present");
 
     // console.log("Word selected");
@@ -300,7 +315,11 @@ function wordSelector() {
             }
             document.body.appendChild(node);
             // if (node.innerHTML.trim().length == 0) { }
-            setTimeout(() => {
+            clearInterval(timer);
+            timer = setTimeout(() => { }, 0);
+            clearInterval(timer);
+
+            timer = setTimeout(() => {
                 let remDef = document.getElementById("addedchild");
                 if (remDef)
                     document.body.removeChild(remDef);
@@ -393,9 +412,18 @@ var intervalId = window.setInterval(function () {
     console.log("this is link");
     if (add.indexOf("youtube") == -1) {
         console.log("not youtube");
+        let d = new Date();
+        let hour = d.getHours() + "";
+        let min = d.getMinutes() + "";
+        let sec = d.getSeconds() + "";
+        hour = hour.length > 1 ? hour : "0" + hour;
+        min = min.length > 1 ? min : "0" + min;
+        sec = sec.length > 1 ? sec : "0" + sec;
+        let s1 = hour + ":" + min + ":" + sec;
         chrome.storage.sync.get(["s"], function (res) {
             if (res.s === undefined) {
-                console.log("not found");
+                chrome.storage.sync.set({ s: s1 });
+                // console.log("not found");
             }
             else {
                 chrome.storage.sync.get(["time"], function (r) {
@@ -403,17 +431,17 @@ var intervalId = window.setInterval(function () {
                     else if (r.time > 0) {
                         console.log("00");
                         let os = res.s;
-                        d = new Date();
-                        let hour = d.getHours() + "";
-                        let min = d.getMinutes() + "";
-                        let sec = d.getSeconds() + "";
-                        hour = hour.length > 1 ? hour : "0" + hour;
-                        console.log(d.getSeconds());
-                        min = min.length > 1 ? min : "0" + min;
-                        sec = sec.length > 1 ? sec : "0" + sec;
-                        let s = hour + ":" + min + ":" + sec;
-                        if (s.split(":")[0] !== os.split(":")[0]) {
-                            chrome.storage.sync.set({ s: s });
+                        // d = new Date();
+                        // let hour = d.getHours() + "";
+                        // let min = d.getMinutes() + "";
+                        // let sec = d.getSeconds() + "";
+                        // console.log(d.getSeconds());
+                        // hour = hour.length > 1 ? hour : "0" + hour;
+                        // min = min.length > 1 ? min : "0" + min;
+                        // sec = sec.length > 1 ? sec : "0" + sec;
+                        // let s1 = hour + ":" + min + ":" + sec;
+                        if (s1.split(":")[0] !== os.split(":")[0]) {
+                            chrome.storage.sync.set({ s: s1 });
                             console.log("Wake up");
                             alert("wake up");
                             console.log("01");
@@ -421,7 +449,7 @@ var intervalId = window.setInterval(function () {
                             window.close();
                         }
                         else if (s.split(":")[1] >= (parseInt(os.split(":")[1]) + 5)) {
-                            chrome.storage.sync.set({ s: s });
+                            chrome.storage.sync.set({ s: s1 });
                             console.log("Wake up");
                             window.close();
                             alert("wake up");
@@ -434,5 +462,33 @@ var intervalId = window.setInterval(function () {
         });
     }
 }, 30000);
+
+// function downloading() {
+//     let jspdf = document.createElement("script");
+//     jspdf.onload = function () {
+//         let pdf = new jsPDF();
+//         let elements = document.getElementsByTagName("img");
+//         for (let i in elements) {
+//             let img = elements[i];
+//             console.log("add img ", img);
+//             if (!/^blob:/.test(img.src)) {
+//                 console.log("invalid src");
+//                 continue;
+//             }
+//             let can = document.createElement('canvas');
+//             let con = can.getContext("2d");
+//             can.width = img.width;
+//             can.height = img.height;
+//             con.drawImage(img, 0, 0, img.width, img.height);
+//             let imgData = can.toDataURL("image/jpeg", 1.0);
+//             pdf.addImage(imgData, 'JPEG', 0, 0);
+//             pdf.addPage();
+//         }
+//         pdf.save("download.pdf");
+//     };
+//     jspdf.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js';
+//     document.body.appendChild(jspdf);
+// }
+
 // chrome.storage.sync.set({ s: "00:00:31" });
 // chrome.storage.sync.get(["time"], function (res) {

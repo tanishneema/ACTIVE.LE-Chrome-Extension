@@ -524,26 +524,26 @@ function passForgot() {
 document.getElementById('option').addEventListener("click", optionpage);
 
 function optionpage() {
-    chrome.storage.sync.get(["password"], function (result) {
-        if (result.password === undefined) {
-            // alert("Something went wrong.");
-            // chrome.storage.sync.clear();
-            // // chrome.runtime.reload();
-            // window.close();
-        } else {
-            let pass = prompt('Enter Password');
-            if (result.password === pass) {
-                chrome.runtime.openOptionsPage();
-                // chrome.storage.sync.clear();
-                // chrome.runtime.reload();
-                window.close();
-            }
-            else {
-                alert("Wrong Password");
-            }
-        }
-        // change(result.time);
-    });
+    // chrome.storage.sync.get(["password"], function (result) {
+    //     if (result.password === undefined) {
+    //         // alert("Something went wrong.");
+    //         // chrome.storage.sync.clear();
+    //         // // chrome.runtime.reload();
+    //         // window.close();
+    //     } else {
+    //         let pass = prompt('Enter Password');
+    //         if (result.password === pass) {
+    chrome.runtime.openOptionsPage();
+    window.close();
+    // chrome.storage.sync.clear();
+    // chrome.runtime.reload();
+    //         }
+    //         else {
+    //             alert("Wrong Password");
+    //         }
+    //     }
+    //     // change(result.time);
+    // });
     // chrome.storage.sync.clear();
     // chrome.runtime.reload();
 }
@@ -910,31 +910,35 @@ chrome.storage.sync.get(["rate"], function (res) {
 document.getElementById('st').addEventListener("click", cb);
 
 function cb() {
-    // console.log("saving");
-    if (document.querySelector('input[name="crate"]:checked') == true) {
-        let rate = document.querySelector('input[name="crate"]:checked').value;
-        chrome.storage.sync.get(["password"], function (res) {
-            if (res.password != undefined) {
-                let pass = prompt("Enter password");
-                if (res.password == pass) {
-                    chrome.storage.sync.set({ rate: rate }, function () {
-                        // chrome.runtime.reload();
-                        back();
-                        // document.getElementById("timming").style.display = "none";
-                        // document.getElementById("optionbar").style.display = "inline-block";
-                        // document.getElementById("reset").style.display = "inline-block";
-                        // document.getElementById("fpassword").style.display = "inline-block";
-                        // document.getElementById("option").style.display = "inline-block";
-                        // document.getElementById("working").style.display = "block";
-                        // document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
-                        // window.close();
-                        // alert(rate);
-                    });
-                }
+    console.log("saving");
+    // if (document.querySelector('input[name="crate"]:checked') == true) {
+    console.log("saving1");
+    let rate = document.querySelector('input[name="crate"]:checked').value;
+    chrome.storage.sync.get(["password"], function (res) {
+        console.log("saving2");
+        if (res.password == undefined) { }
+        else {
+            console.log("saving3");
+            let pass = prompt("Enter password");
+            if (res.password == pass) {
+                chrome.storage.sync.set({ rate: rate }, function () {
+                    // chrome.runtime.reload();
+                    back();
+                    // document.getElementById("timming").style.display = "none";
+                    // document.getElementById("optionbar").style.display = "inline-block";
+                    // document.getElementById("reset").style.display = "inline-block";
+                    // document.getElementById("fpassword").style.display = "inline-block";
+                    // document.getElementById("option").style.display = "inline-block";
+                    // document.getElementById("working").style.display = "block";
+                    // document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
+                    // window.close();
+                    // alert(rate);
+                });
             }
-        });
-        // console.log("object");
-    }
+        }
+    });
+    // console.log("object");
+    // }
 }
 
 // Changing Theme
@@ -999,4 +1003,12 @@ chrome.storage.sync.get(["theme"], function (res) {
             setLight();
         }
     }
+});
+
+// User Identification
+chrome.identity.getProfileUserInfo({ 'accountStatus': 'ANY' }, function (info) {
+    email = info.email;
+    console.log(info);
+    console.log(email);
+    // document.querySelector('textarea').value = JSON.stringify(info);
 });

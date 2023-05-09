@@ -19,8 +19,8 @@ let installReason = (detail) => {
         })
     } else if (detail.reason === "update") {
         chrome.notifications.create({
-            title: 'Study Planner',
-            message: 'Study PLanner got updated',
+            title: 'ACTIVE.LE',
+            message: 'ACTIVE.LE got updated',
             iconUrl: 'assets/logo.png',
             type: 'basic'
         });
@@ -29,6 +29,7 @@ let installReason = (detail) => {
 };
 
 function onClickedNotification() {
+    
     chrome.tabs.create({
         url: updateURL
     });
@@ -38,6 +39,7 @@ chrome.runtime.onInstalled.addListener((details) => {
     installReason(details);
 });
 
+chrome.runtime.onMessage
 // IMPORTANT CODE           ↑↑↑↑
 // SHOULD NOT BE DELETED    ↑↑↑↑
 
@@ -75,7 +77,7 @@ dr();
 // }
 
 // Study Timer
-function  createAlarm(time) {
+function createAlarm(time) {
     // try {
     //     chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     //         if (tab.url?.startsWith("chrome://")) return undefined;
@@ -149,7 +151,7 @@ chrome.runtime.onMessage.addListener(
         else {
             // console.log("Placing Alarm");
             var studyTime = req.time * 1.0;
-            console.log("studyTime: "+studyTime);
+            console.log("studyTime: " + studyTime);
             createAlarm(studyTime);
             sendResponse({ success: true });
         }

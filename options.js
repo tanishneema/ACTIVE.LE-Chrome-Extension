@@ -46,14 +46,14 @@ chrome.storage.sync.get(["password"], function (result) {
                 document.getElementById("define").style.display = "none";
                 document.getElementById("definetime").style.display = "none";
                 document.getElementById("second").style.display = "block";
-                if (res.rate === "never")
-                    document.getElementById("never1").checked = "true";
-                else if (res.rate === "all")
-                    document.getElementById("all1").checked = "true";
-                else if (res.rate === "study")
-                    document.getElementById("study1").checked = "true";
-                else if (res.rate === "schedule")
-                    document.getElementById("schedule1").checked = "true";
+                // if (res.rate === "never")
+                //     document.getElementById("never1").checked = "true";
+                // else if (res.rate === "all")
+                //     document.getElementById("all1").checked = "true";
+                // else if (res.rate === "study")
+                //     document.getElementById("study1").checked = "true";
+                // else if (res.rate === "schedule")
+                //     document.getElementById("schedule1").checked = "true";
             }
         });
     }
@@ -244,41 +244,41 @@ function openfolder() {
     // console.log(rate);
     // console.log("hi there");
     // chrome.storage.sync.set({ rate: rate }, function () {
-    var pass = document.getElementById('openpass').value;
-    console.log("0");
-    chrome.storage.sync.get(["password"], function (res) {
-        console.log("1");
-        if (res.password === undefined) {
-            console.log("2");
-            chrome.storage.sync.clear();
-            window.close();
-        }
-        else if (res.password === pass) {
-            console.log("3");
-            document.getElementById('openpass').value = "";
-            document.getElementById('openpass').style.backgroundColor = "#1d2b3a";
-            document.getElementById("first").style.display = "none";
-            document.getElementById("second").style.display = "none";
-            document.getElementById("third").style.display = "block";
-        } else {
-            console.log("4");
-            document.getElementById('openpass').style.backgroundColor = "#ff00004d";
-        }
-        console.log("5");
-        // chrome.runtime.reload();
-        // window.close();
-        // document.getElementById("definetime").style.display = "none";
-        // document.getElementById("define").style.display = "none";
-        // document.getElementById("first").style.display = "none";
-        // document.getElementById("second").style.display = "block";
-        // document.getElementById("reset").style.display = "inline-block";
-        // document.getElementById("fpassword").style.display = "inline-block";
-        // document.getElementById("option").style.display = "inline-block";
-        // document.getElementById("working").style.display = "block";
-        // document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
-        // alert(rate);
-        // });
-    })
+    // var pass = document.getElementById('openpass').value;
+    // console.log("0");
+    // chrome.storage.sync.get(["password"], function (res) {
+    // console.log("1");
+    // if (res.password === undefined) {
+    //     console.log("2");
+    //     chrome.storage.sync.clear();
+    //     window.close();
+    // }
+    // else if (res.password === pass) {
+    // console.log("3");
+    document.getElementById('openpass').value = "";
+    document.getElementById('openpass').style.backgroundColor = "#1d2b3a";
+    document.getElementById("first").style.display = "none";
+    document.getElementById("second").style.display = "none";
+    document.getElementById("third").style.display = "block";
+    // } else {
+    //     console.log("4");
+    //     document.getElementById('openpass').style.backgroundColor = "#ff00004d";
+    // }
+    // console.log("5");
+    // chrome.runtime.reload();
+    // window.close();
+    // document.getElementById("definetime").style.display = "none";
+    // document.getElementById("define").style.display = "none";
+    // document.getElementById("first").style.display = "none";
+    // document.getElementById("second").style.display = "block";
+    // document.getElementById("reset").style.display = "inline-block";
+    // document.getElementById("fpassword").style.display = "inline-block";
+    // document.getElementById("option").style.display = "inline-block";
+    // document.getElementById("working").style.display = "block";
+    // document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
+    // alert(rate);
+    // });
+    // })
 }
 
 // Appending or Adding History Elements to Option Page

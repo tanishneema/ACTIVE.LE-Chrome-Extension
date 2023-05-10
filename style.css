@@ -5,7 +5,7 @@
   --bthover: #00dfc4;
   --nti: #1d2b3a;
   --white: white;
-  --txt: white;
+  --txt: #00dfc4;
   --darker: #1f2937;
   --darkest: #111827;
   --grey: #6b7280;
@@ -19,10 +19,14 @@
   padding: 0px;
   box-sizing: border-box;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+  -webkit-user-select: none;
+  /* Safari */
+  -ms-user-select: none;
+  /* IE 10 and IE 11 */
+  user-select: none;
+  /* Standard syntax */
 }
+
 /* .prevent-select {
 } */
 body {
@@ -68,7 +72,6 @@ body {
 .input input,
 #intro input,
 #new-task-input {
-  margin: 0 0 15px 0;
   width: 100%;
   padding: 10px;
   border: 1px solid var(--btn);
@@ -78,7 +81,8 @@ body {
   color: var(--txt);
   font-size: 1em;
   transform: 0.5s;
-  margin-bottom: 10px;
+  align-items: center;
+  margin-bottom: 15px;
 }
 
 h1 {
@@ -122,9 +126,9 @@ div button {
   margin: 0 0 15px 0;
 }
 
-div button:hover,
-div button:active,
-div button:focus {
+div button:hover {
+  /* div button:active, */
+  /* div button:focus { */
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
@@ -366,10 +370,11 @@ p {
   background-color: #00ca4e;
 }
 
+/* 
 #settingsI {
-}
+} */
 
-a {
+.dropdown-content a {
   display: block;
   /* display: flex; */
   /* position:fixed; */
@@ -386,10 +391,13 @@ a {
 }
 
 a:hover {
+  cursor: pointer;
+}
+
+.dropdown-content a:hover {
   /* padding-left: 9px;
   padding-right: 9px; */
   /* padding-left: 4px; */
-  cursor: pointer;
   color: #1d2b3a;
   /* -webkit-transform: scale(1.1); */
   /* transform: scale(1.1); */
@@ -406,6 +414,7 @@ a:hover {
 #settingsI label,
 #timming input,
 #settingsI input {
+  /* #contactI input { */
   color: #00dfc4;
   margin-bottom: 10px;
   font-size: 1.1em;
@@ -418,7 +427,12 @@ a:hover {
 
 #timming input:hover ~ input,
 #settingsI input:hover ~ input {
+  /* #contactI input:hover ~ input { */
   background-color: rgba(0, 223, 196, 0.6);
+}
+
+#contactI {
+  height: 180px;
 }
 
 #settingsI button {
@@ -482,7 +496,7 @@ a:hover {
   /* margin-bottom: 10px; */
 }
 
-#Info p {
+#Info p:nth-child(0) {
   width: 100%;
   font-size: 1.2em;
   padding: 0 10px 10px 10px;
@@ -491,6 +505,7 @@ a:hover {
   text-align: justify;
   margin-bottom: 0;
 }
+
 /* a:hover ~ #footer {
   padding-bottom: 0px;
   padding-top: 0px;
@@ -760,3 +775,214 @@ font-weight: 700; */
 /* .task .actions .delete {
   color: crimson;
 } */
+
+.box1 {
+  /* margin: 10px 20px; */
+}
+
+.content1,
+.content2,
+.content3 {
+  position: relative;
+  top: 0;
+  color: #fff;
+  font-size: 10px;
+  left: 0;
+  height: auto;
+  width: 100%;
+  display: flex;
+  z-index: 1;
+  /* background: #5f6f94; */
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  display: none;
+}
+
+.team .box1:hover .content1 {
+  opacity: 1;
+  display: block;
+  /* background: #25316d; */
+  background-image: none;
+}
+.team .box2:hover .content2 {
+  opacity: 1;
+  display: block;
+  /* background: #25316d; */
+  background-image: none;
+}
+.team .box3:hover .content3 {
+  opacity: 1;
+  display: block;
+  /* background: #25316d; */
+  background-image: none;
+}
+
+.team .box1:hover #b1h4 {
+  /* opacity: 0; */
+  display: none;
+  /* background: #25316d; */
+  background-image: none;
+}
+.team .box2:hover #b2h4 {
+  /* opacity: 0; */
+  display: none;
+  /* background: #25316d; */
+  background-image: none;
+}
+.team .box3:hover #b3h4 {
+  /* opacity: 0; */
+  display: none;
+  /* background: #25316d; */
+  background-image: none;
+}
+
+p a {
+  color: var(--txt);
+  font-size: 15px;
+  width: 100%;
+  height: 15px;
+  /* height: 100%; */
+}
+
+.arrow {
+  position: fixed;
+  background-color: transparent;
+  color: black;
+  padding: 5px;
+  font-size: 15px;
+  /* border: 2px solid orange; */
+  /* top: 30%; */
+  margin-top: 50px;
+  /* transform: translateY(-50%); */
+  cursor: pointer;
+  position: relative;
+  width: 20px;
+  transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  box-shadow: none;
+  border-radius: 4px;
+  border: none;
+  background-color: var(--btn);
+}
+
+.arrow:focus {
+  outline: 0;
+}
+
+.right-arrow {
+  float: right;
+}
+
+.slider-container {
+  height: 80%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.slide {
+  opacity: 0;
+  /* height: 80px; */
+  width: 100%;
+  /* overflow: hidden; */
+  /* background-position: center center; */
+  /* background-size: cover; */
+  position: absolute;
+  translate: 23px 0;
+  transition: 0.4s ease;
+  display: none;
+}
+
+.slide.active {
+  display: flex;
+  opacity: 1;
+}
+
+.team {
+  /* display: flex; */
+  /* flex-direction: row; */
+  align-items: center;
+  justify-content: center;
+  /* height: 120px; */
+  /* overflow: hidden; */
+  margin: 0;
+  background-position: center center;
+  background-size: cover;
+  /* margin: 0 0 10px 0; */
+  /* padding: 0 0 10px 0; */
+  /* transition: 0.4s; */
+}
+
+/* .box1 {
+  padding: 0;
+  margin: 0;
+  height: 300px;
+  overflow: hidden;
+  margin-left: 35px;
+} */
+
+.box1 {
+  /* height: 100px; */
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* .box3 {
+height: 300px;
+overflow: hidden;
+margin-right: 35px;
+} */
+
+/* .box1 h3,
+.box2 h3,
+.box3 h3 {
+font-size: 2rem;
+background-color: #25316d;
+color: #fef5ac;
+margin: 0;
+padding: 0.5rem;
+bottom: 0;
+} */
+h4,
+.content1 p,
+.content2 p,
+.content3 p {
+  color: #00dfc4;
+  /* margin-top: 10px; */
+  /* padding: 5px; */
+  font-weight: 100;
+  /* font-size: 15px; */
+  margin: 5px 0 5px 0;
+  width: auto;
+}
+.content1 p a,
+.content2 p a,
+.content3 p a {
+  font-size: 12px;
+  font-weight: 10;
+}
+h4 {
+  font-size: 1.2em;
+}
+.content1 p,
+.content2 p,
+.content3 p {
+  margin: 7px 0 7px 0;
+}
+
+.box-container .box {
+  text-align: center;
+  border: 0.1rem solid #00dfc4;
+}
+
+.box-container {
+  display: -ms-grid;
+  display: grid;
+  width: 80%;
+  margin: 10px 0;
+  /* -ms-grid-columns: (minmax(180px, 1fr)) [auto-fit]; */
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+}

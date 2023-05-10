@@ -29,7 +29,7 @@ let installReason = (detail) => {
 };
 
 function onClickedNotification() {
-    
+
     chrome.tabs.create({
         url: updateURL
     });
@@ -277,3 +277,13 @@ chrome.tabs.onUpdated.addListener((tabId, tab) => {
 //         console.log(tab.url + " 12 ka 4 4 2 ka 1");
 //     });
 // }); 
+// chrome.runtime.onMessage.addListener(
+//     function (req, sender, sendResponse) {
+//         if (req.link == "") {
+
+//         } else {
+//             chrome.tabs.create({
+//                 url: req.link
+//             })
+//         }
+//     });

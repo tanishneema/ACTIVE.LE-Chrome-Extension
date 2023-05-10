@@ -1011,39 +1011,62 @@ chrome.storage.sync.get(["theme"], function (res) {
 //         document.getElementById("uEmail").style.display = "none";
 // });
 
-const body = document.body
-const slides = document.querySelectorAll('.slide')
-const leftBtn = document.getElementById('left')
-const rightBtn = document.getElementById('right')
+// About Page Slider
+const body = document.body;
+const slds = document.querySelectorAll('.sld');
+const lBtn = document.getElementById('larrow');
+const rBtn = document.getElementById('rarrow');
 
-let activeSlide = 0
+let actvSld = 0;
+
+rBtn.addEventListener('click', () => {
+    actvSld++;
+    if (actvSld > slds.length - 1)
+        actvSld = 0;
+    setActvSld();
+})
+
+lBtn.addEventListener('click', () => {
+    actvSld--;
+    if (actvSld < 0)
+        actvSld = slds.length - 1;
+    setActvSld();
+})
+
+function setActvSld() {
+    const AboutHeading = document.getElementById('AbtHead');
+    if (AboutHeading.innerText == "# About ACTIVE.LE")
+        AboutHeading.innerText = ("# About Us");
+    else
+        AboutHeading.innerText = ("# About ACTIVE.LE");
+    slds.forEach((sld) => sld.classList.remove('actv'));
+    slds[actvSld].classList.add('actv');
+}
+
+// Contact Us Page Slider
+const slides = document.querySelectorAll('.slide');
+const leftBtn = document.getElementById('left');
+const rightBtn = document.getElementById('right');
+
+let activeSlide = 0;
 
 rightBtn.addEventListener('click', () => {
-    
-    activeSlide++
-
-    if (activeSlide > slides.length - 1) {
-        activeSlide = 0
-    }
-
-    setActiveSlide()
+    activeSlide++;
+    if (activeSlide > slides.length - 1)
+        activeSlide = 0;
+    setActiveSlide();
 })
 
 leftBtn.addEventListener('click', () => {
-    activeSlide--
-
-    if (activeSlide < 0) {
-        activeSlide = slides.length - 1
-    }
-
-    setActiveSlide()
+    activeSlide--;
+    if (activeSlide < 0)
+        activeSlide = slides.length - 1;
+    setActiveSlide();
 })
 
-// setBgToBody()
-
 function setActiveSlide() {
-    slides.forEach((slide) => slide.classList.remove('active'))
-    slides[activeSlide].classList.add('active')
+    slides.forEach((slide) => slide.classList.remove('active'));
+    slides[activeSlide].classList.add('active');
 }
 
 // Open Mail from contact us Page

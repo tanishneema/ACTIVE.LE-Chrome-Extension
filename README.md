@@ -29,6 +29,6 @@ It provides:- <br />&emsp; → Parental Control <br />&emsp; → Visited History
 ## Author
 
 Hello Everyone,<br />
-Myself **Tanish Neema**, I am a B.Tech student. I am currently pursuing a degree in Computer Science Engineering from **Jaypee University of Engineering and Technology**. I am currently into 3rd year of my degree. <br />
+Myself **Tanish Neema**, I am a B.Tech student. I am currently pursuing a degree in Computer Science Engineering from **Jaypee University of Engineering and Technology**. I am currently into 3rd year (2024 batch) of my degree. <br />
 I have always been passionate about technology and the various opportunities that come with it. I am a quick learner and have a knack for solving complex problems. I am also passionate about exploring new technologies and developing innovative solutions to real-world problems. I am looking forward to learning more and making a positive contribution to the field of technology.<br />
 I made this chrome extension and learned more about the vast field, i.e. development. I have used HTML, CSS and Javascript for making this project. I am still exploring and working on creating a chrome extension with React JS.

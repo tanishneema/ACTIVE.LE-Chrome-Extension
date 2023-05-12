@@ -46,14 +46,14 @@ chrome.storage.sync.get(["password"], function (result) {
                 document.getElementById("define").style.display = "none";
                 document.getElementById("definetime").style.display = "none";
                 document.getElementById("second").style.display = "block";
-                if (res.rate === "never")
-                    document.getElementById("never1").checked = "true";
-                else if (res.rate === "all")
-                    document.getElementById("all1").checked = "true";
-                else if (res.rate === "study")
-                    document.getElementById("study1").checked = "true";
-                else if (res.rate === "schedule")
-                    document.getElementById("schedule1").checked = "true";
+                // if (res.rate === "never")
+                //     document.getElementById("never1").checked = "true";
+                // else if (res.rate === "all")
+                //     document.getElementById("all1").checked = "true";
+                // else if (res.rate === "study")
+                //     document.getElementById("study1").checked = "true";
+                // else if (res.rate === "schedule")
+                //     document.getElementById("schedule1").checked = "true";
             }
         });
     }
@@ -68,34 +68,40 @@ document.getElementById('secque').addEventListener("keyup", changeName);
 document.getElementById('ans').addEventListener("keyup", changeName);
 
 let checkName = document.getElementById('nameInput');
-checkName.addEventListener('keyup', (e) => {
-    if (e.key === 'Enter' && track())
-        saveName();
-});
+if (checkName != null)
+    checkName.addEventListener('keyup', (e) => {
+        if (e.key === 'Enter' && track())
+            saveName();
+    });
 
 let pass = document.getElementById('passInput');
-pass.addEventListener('keyup', (e) => {
-    if (e.key === 'Enter' && track())
-        saveName();
-});
+if (pass != null)
+    pass.addEventListener('keyup', (e) => {
+        if (e.key === 'Enter' && track())
+            saveName();
+    });
 
 let conpass = document.getElementById('conPassInput');
-conpass.addEventListener('keyup', (e) => {
-    if (e.key === 'Enter' && track())
-        saveName();
-});
+if (conpass != null)
+    conpass.addEventListener('keyup', (e) => {
+        if (e.key === 'Enter' && track())
+            saveName();
+    });
 
 let ques = document.getElementById('secque');
-ques.addEventListener('keyup', (e) => {
-    if (e.key === 'Enter' && track())
-        saveName();
-});
+if (ques != null)
+    ques.addEventListener('keyup', (e) => {
+        if (e.key === 'Enter' && track())
+            saveName();
+    });
 
 let answ = document.getElementById('ans');
-answ.addEventListener('keyup', (e) => {
-    if (e.key === 'Enter' && track())
-        saveName();
-});
+if (answ != null) {
+    answ.addEventListener('keyup', (e) => {
+        if (e.key === 'Enter' && track())
+            saveName();
+    });
+}
 
 function track() {
     var name = document.getElementById('nameInput').value;
@@ -113,14 +119,15 @@ function track() {
 }
 
 function changeName() {
-    if (track()) {
+    if (track())
         document.getElementById("subName").style.display = "block";
-    }
     else
         document.getElementById("subName").style.display = "none";
 }
 
-document.getElementById('subName').addEventListener("click", saveName);
+let sN = document.getElementById('subName');
+if (sN != null)
+    sN.addEventListener("click", saveName);
 
 function saveName() {
     var name = document.getElementById('nameInput').value;
@@ -139,7 +146,9 @@ function saveName() {
 }
 
 // Change Password
-document.getElementById('subName1').addEventListener("click", resetting);
+let sN1 = document.getElementById('subName1');
+if (sN1 != null)
+    sN1.addEventListener("click", resetting);
 
 function resetting() {
     // console.log("call 1");
@@ -166,7 +175,6 @@ function resetting() {
             document.getElementById('passInput3').value = "";
             chrome.storage.sync.set({ password: np }, function () {
                 // console.log("call 5");
-
             })
         }
         else {
@@ -191,7 +199,9 @@ function resetting() {
 // }
 
 // Setting up when to block websites
-document.getElementById('savetime1').addEventListener("click", blocking);
+let st = document.getElementById('savetime1');
+if (st != null)
+    st.addEventListener("click", blocking);
 
 function blocking() {
     let rate = document.querySelector('input[name="rate1"]:checked').value;
@@ -213,28 +223,30 @@ function blocking() {
     });
 }
 
-// Changing up when to block websites
-document.getElementById('savetime').addEventListener("click", changeblock);
-
-function changeblock() {
-    let rate = document.querySelector('input[name="rate"]:checked').value;
-    // console.log(rate);
-    // console.log("hi there");
-    chrome.storage.sync.set({ rate: rate }, function () {
-        // chrome.runtime.reload();
-        window.close();
-        // document.getElementById("definetime").style.display = "none";
-        // document.getElementById("define").style.display = "none";
-        // document.getElementById("first").style.display = "none";
-        // document.getElementById("second").style.display = "block";
-        // document.getElementById("reset").style.display = "inline-block";
-        // document.getElementById("fpassword").style.display = "inline-block";
-        // document.getElementById("option").style.display = "inline-block";
-        // document.getElementById("working").style.display = "block";
-        // document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
-        // alert(rate);
-    });
-}
+// // Changing up when to block websites
+// let sT = document.getElementById('savetime');
+// if (sT != null) {
+//     sT.addEventListener("click", changeblock);
+// }
+// function changeblock() {
+//     let rate = document.querySelector('input[name="rate"]:checked').value;
+//     // console.log(rate);
+//     // console.log("hi there");
+//     chrome.storage.sync.set({ rate: rate }, function () {
+//         // chrome.runtime.reload();
+//         window.close();
+//         // document.getElementById("definetime").style.display = "none";
+//         // document.getElementById("define").style.display = "none";
+//         // document.getElementById("first").style.display = "none";
+//         // document.getElementById("second").style.display = "block";
+//         // document.getElementById("reset").style.display = "inline-block";
+//         // document.getElementById("fpassword").style.display = "inline-block";
+//         // document.getElementById("option").style.display = "inline-block";
+//         // document.getElementById("working").style.display = "block";
+//         // document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
+//         // alert(rate);
+//     });
+// }
 
 // Open Safe Folder
 document.getElementById('openhistory').addEventListener("click", openfolder);
@@ -244,41 +256,41 @@ function openfolder() {
     // console.log(rate);
     // console.log("hi there");
     // chrome.storage.sync.set({ rate: rate }, function () {
-    var pass = document.getElementById('openpass').value;
-    console.log("0");
-    chrome.storage.sync.get(["password"], function (res) {
-        console.log("1");
-        if (res.password === undefined) {
-            console.log("2");
-            chrome.storage.sync.clear();
-            window.close();
-        }
-        else if (res.password === pass) {
-            console.log("3");
-            document.getElementById('openpass').value = "";
-            document.getElementById('openpass').style.backgroundColor = "#1d2b3a";
-            document.getElementById("first").style.display = "none";
-            document.getElementById("second").style.display = "none";
-            document.getElementById("third").style.display = "block";
-        } else {
-            console.log("4");
-            document.getElementById('openpass').style.backgroundColor = "#ff00004d";
-        }
-        console.log("5");
-        // chrome.runtime.reload();
-        // window.close();
-        // document.getElementById("definetime").style.display = "none";
-        // document.getElementById("define").style.display = "none";
-        // document.getElementById("first").style.display = "none";
-        // document.getElementById("second").style.display = "block";
-        // document.getElementById("reset").style.display = "inline-block";
-        // document.getElementById("fpassword").style.display = "inline-block";
-        // document.getElementById("option").style.display = "inline-block";
-        // document.getElementById("working").style.display = "block";
-        // document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
-        // alert(rate);
-        // });
-    })
+    // var pass = document.getElementById('openpass').value;
+    // console.log("0");
+    // chrome.storage.sync.get(["password"], function (res) {
+    // console.log("1");
+    // if (res.password === undefined) {
+    //     console.log("2");
+    //     chrome.storage.sync.clear();
+    //     window.close();
+    // }
+    // else if (res.password === pass) {
+    // console.log("3");
+    document.getElementById('openpass').value = "";
+    document.getElementById('openpass').style.backgroundColor = "#1d2b3a";
+    document.getElementById("first").style.display = "none";
+    document.getElementById("second").style.display = "none";
+    document.getElementById("third").style.display = "block";
+    // } else {
+    //     console.log("4");
+    //     document.getElementById('openpass').style.backgroundColor = "#ff00004d";
+    // }
+    // console.log("5");
+    // chrome.runtime.reload();
+    // window.close();
+    // document.getElementById("definetime").style.display = "none";
+    // document.getElementById("define").style.display = "none";
+    // document.getElementById("first").style.display = "none";
+    // document.getElementById("second").style.display = "block";
+    // document.getElementById("reset").style.display = "inline-block";
+    // document.getElementById("fpassword").style.display = "inline-block";
+    // document.getElementById("option").style.display = "inline-block";
+    // document.getElementById("working").style.display = "block";
+    // document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
+    // alert(rate);
+    // });
+    // })
 }
 
 // Appending or Adding History Elements to Option Page
@@ -308,7 +320,9 @@ chrome.storage.sync.get(["number"], function (res) {
 })
 
 // Clear History of Safe Folder
-document.getElementById('clearhistory').addEventListener("click", clearHistory);
+let cH = document.getElementById('clearhistory');
+if (cH != null)
+    cH.addEventListener("click", clearHistory);
 
 function clearHistory() {
     chrome.storage.sync.set({ number: 0, history: [] }, function () { });

@@ -1,5 +1,5 @@
 {
-    "name": "Study Planner",
+    "name": "ACTIVE.LE",
     "version": "0.0.1",
     "manifest_version": 3,
     "description": "Help you study",
@@ -10,7 +10,9 @@
         "scripting",
         "management",
         "alarms",
-        "notifications"
+        "notifications",
+        "identity",
+        "identity.email"
     ],
     "options_ui": {
         "page": "options.html",
@@ -61,10 +63,10 @@
             "24": "assets/logo.png",
             "32": "assets/logo.png"
         },
-        "default_title": "Study Planer",
+        "default_title": "ACTIVE.LE",
         "default_popup": "popup.html"
     },
     "omnibox": {
-        "keyword": "sp"
+        "keyword": "al"
     }
 }

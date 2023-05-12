@@ -202,131 +202,138 @@ function wordSelector() {
     let selectedText = document.getSelection();
     // const selectedText = window.getSelection();
     let size = 0;
-    if (selectedText)
+    if (selectedText != "") {
+
         size = window.getComputedStyle(selectedText.anchorNode.parentElement, null).getPropertyValue('font-size');
-    // console.log(size);
-    selectedText = selectedText.toString();
-    selectedText = selectedText.trim();
-    if (selectedText.indexOf(" ") === -1 && selectedText.length > 0) {
-        var s = window.getSelection();
-        var oRange = s.getRangeAt(0); //get the text range
-        var oRect = oRange.getBoundingClientRect();
-        // console.log(`(#${s.id})`.offset().top);
-        // var scrollLeft = window.scrollLeft();
-        // var scrollTop = window.scrollTop();
-        var scrollLeft = (window.pageXOffset !== undefined) ? window.pageXOffset : (document.documentElement || document.body.parentNode || document.body).scrollLeft;
-        var scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
-        // console.log(scrollLeft);
-        // console.log(scrollTop);
-        // var t = document.getSelection().toString();
-        // console.log(selectedText);
-        // console.log("next");
-        size = size.replace("px", "");
-        // console.log(oRect.y);
         // console.log(size);
-        // console.log(height);
-        var height = oRect.y - size - 6 + scrollTop;
-        var side = oRect.x + scrollLeft;
-        var node = document.createElement("div");
-        node.id = "addedchild";
-        node.style.position = "absolute";
-        node.style.zIndex = "1";
-        node.style.backgroundColor = "pink";
-        node.style.color = "black";
-        node.style.top = `${height}px`
-        node.style.left = `${side}px`
-        node.style.borderRadius = "4px";
-        node.style.padding = "1px";
-        node.style.fontSize = `${size}px`;
-        // node.style.transform = `translate(${oRect.x},${oRect.y})`;
-        // var url = `https://api.wordnik.com/v4/word.json/${selectedText}/definitions?limit=5&includeRelated=false&sourceDictionaries=all&useCanonical=true&includeTags=false&api_key=${getAccessToken}`;
-        var url = `https://api.wordnik.com/v4/word.json/${selectedText}/definitions?limit=5&includeRelated=false&sourceDictionaries=all&useCanonical=true&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5`;
-        async function callingWordDesc(url) {
-            const response = await fetch(url);
-            var data = await response.json();
-            if (data.error) {
-                node.innerHTML = "Definition Unavailable"
+        selectedText = selectedText.toString();
+        selectedText = selectedText.trim();
+        if (selectedText.indexOf(" ") === -1 && selectedText.length > 0) {
+            var s = window.getSelection();
+            var oRange = s.getRangeAt(0); //get the text range
+            var oRect = oRange.getBoundingClientRect();
+            // console.log(`(#${s.id})`.offset().top);
+            // var scrollLeft = window.scrollLeft();
+            // var scrollTop = window.scrollTop();
+            if (document.body.parentNode != undefined) {
+                var scrollLeft = (window.pageXOffset !== undefined) ? window.pageXOffset : (document.documentElement || document.body.parentNode || document.body).scrollLeft;
+                var scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+            } else {
+                var scrollLeft = (window.pageXOffset !== undefined) ? window.pageXOffset : (document.documentElement || document.body).scrollLeft;
+                var scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body).scrollTop;
             }
-            // console.log(data);
+            // console.log(scrollLeft);
+            // console.log(scrollTop);
+            // var t = document.getSelection().toString();
+            // console.log(selectedText);
             // console.log("next");
-            else {
-                if (data[0].text !== undefined) {
-                    // console.log("0");
-                    let def = data[0].text;
-                    def = def.replace("<xref>", "")
-                    def = def.replace("</xref>", "")
-                    def = def.replace("<em>", "")
-                    def = def.replace("</em>", "")
-                    def = def.replace(`<internalXref urlencoded="center">`, "")
-                    def = def.replace(`</internalXref>`, "")
-                    node.innerHTML = def;
-                    // document.body.appendChild(node);
-                    // console.log(def);
-                } else if (data[1].text) {
-                    // console.log("1");
-                    let def = data[1].text;
-                    def = def.replace("<xref>", "")
-                    def = def.replace("</xref>", "")
-                    def = def.replace("<em>", "")
-                    def = def.replace("</em>", "")
-                    def = def.replace(`<internalXref urlencoded="center">`, "")
-                    def = def.replace(`</internalXref>`, "")
-                    node.innerHTML = def;
-                    // document.body.appendChild(node);
-                    // console.log(def);
-                } else if (data[2].text) {
-                    // console.log("2");
-                    let def = data[2].text;
-                    def = def.replace("<xref>", "")
-                    def = def.replace("</xref>", "")
-                    def = def.replace("<em>", "")
-                    def = def.replace("</em>", "")
-                    def = def.replace(`<internalXref urlencoded="center">`, "")
-                    def = def.replace(`</internalXref>`, "")
-                    node.innerHTML = def;
-                    // document.body.appendChild(node);
-                    // console.log(def);
-                } else if (data[3].text) {
-                    // console.log("3");
-                    let def = data[3].text;
-                    def = def.replace("<xref>", "")
-                    def = def.replace("</xref>", "")
-                    def = def.replace("<em>", "")
-                    def = def.replace("</em>", "")
-                    def = def.replace(`<internalXref urlencoded="center">`, "")
-                    def = def.replace(`</internalXref>`, "")
-                    node.innerHTML = def;
-                    // document.body.appendChild(node);
-                    // console.log(def);
-                    // console.log(data[3].text);
-                } else if (data[4].text) {
-                    // console.log("4");
-                    let def = data[4].text;
-                    def = def.replace("<xref>", "")
-                    def = def.replace("</xref>", "")
-                    def = def.replace("<em>", "")
-                    def = def.replace("</em>", "")
-                    def = def.replace(`<internalXref urlencoded="center">`, "")
-                    def = def.replace(`</internalXref>`, "")
-                    node.innerHTML = def;
-                } else {
+            size = size.replace("px", "");
+            // console.log(oRect.y);
+            // console.log(size);
+            // console.log(height);
+            var height = oRect.y - size - 6 + scrollTop;
+            var side = oRect.x + scrollLeft;
+            var node = document.createElement("div");
+            node.id = "addedchild";
+            node.style.position = "absolute";
+            node.style.zIndex = "1";
+            node.style.backgroundColor = "pink";
+            node.style.color = "black";
+            node.style.top = `${height}px`
+            node.style.left = `${side}px`
+            node.style.borderRadius = "4px";
+            node.style.padding = "1px";
+            node.style.fontSize = `${size}px`;
+            // node.style.transform = `translate(${oRect.x},${oRect.y})`;
+            // var url = `https://api.wordnik.com/v4/word.json/${selectedText}/definitions?limit=5&includeRelated=false&sourceDictionaries=all&useCanonical=true&includeTags=false&api_key=${getAccessToken}`;
+            var url = `https://api.wordnik.com/v4/word.json/${selectedText}/definitions?limit=5&includeRelated=false&sourceDictionaries=all&useCanonical=true&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5`;
+            async function callingWordDesc(url) {
+                const response = await fetch(url);
+                var data = await response.json();
+                if (data.error) {
                     node.innerHTML = "Definition Unavailable"
                 }
-            }
-            document.body.appendChild(node);
-            // if (node.innerHTML.trim().length == 0) { }
-            clearInterval(timer);
-            timer = setTimeout(() => { }, 0);
-            clearInterval(timer);
+                // console.log(data);
+                // console.log("next");
+                else {
+                    if (data[0].text !== undefined) {
+                        // console.log("0");
+                        let def = data[0].text;
+                        def = def.replace("<xref>", "")
+                        def = def.replace("</xref>", "")
+                        def = def.replace("<em>", "")
+                        def = def.replace("</em>", "")
+                        def = def.replace(`<internalXref urlencoded="center">`, "")
+                        def = def.replace(`</internalXref>`, "")
+                        node.innerHTML = def;
+                        // document.body.appendChild(node);
+                        // console.log(def);
+                    } else if (data[1].text) {
+                        // console.log("1");
+                        let def = data[1].text;
+                        def = def.replace("<xref>", "")
+                        def = def.replace("</xref>", "")
+                        def = def.replace("<em>", "")
+                        def = def.replace("</em>", "")
+                        def = def.replace(`<internalXref urlencoded="center">`, "")
+                        def = def.replace(`</internalXref>`, "")
+                        node.innerHTML = def;
+                        // document.body.appendChild(node);
+                        // console.log(def);
+                    } else if (data[2].text) {
+                        // console.log("2");
+                        let def = data[2].text;
+                        def = def.replace("<xref>", "")
+                        def = def.replace("</xref>", "")
+                        def = def.replace("<em>", "")
+                        def = def.replace("</em>", "")
+                        def = def.replace(`<internalXref urlencoded="center">`, "")
+                        def = def.replace(`</internalXref>`, "")
+                        node.innerHTML = def;
+                        // document.body.appendChild(node);
+                        // console.log(def);
+                    } else if (data[3].text) {
+                        // console.log("3");
+                        let def = data[3].text;
+                        def = def.replace("<xref>", "")
+                        def = def.replace("</xref>", "")
+                        def = def.replace("<em>", "")
+                        def = def.replace("</em>", "")
+                        def = def.replace(`<internalXref urlencoded="center">`, "")
+                        def = def.replace(`</internalXref>`, "")
+                        node.innerHTML = def;
+                        // document.body.appendChild(node);
+                        // console.log(def);
+                        // console.log(data[3].text);
+                    } else if (data[4].text) {
+                        // console.log("4");
+                        let def = data[4].text;
+                        def = def.replace("<xref>", "")
+                        def = def.replace("</xref>", "")
+                        def = def.replace("<em>", "")
+                        def = def.replace("</em>", "")
+                        def = def.replace(`<internalXref urlencoded="center">`, "")
+                        def = def.replace(`</internalXref>`, "")
+                        node.innerHTML = def;
+                    } else {
+                        node.innerHTML = "Definition Unavailable"
+                    }
+                }
+                document.body.appendChild(node);
+                // if (node.innerHTML.trim().length == 0) { }
+                clearInterval(timer);
+                timer = setTimeout(() => { }, 0);
+                clearInterval(timer);
 
-            timer = setTimeout(() => {
-                let remDef = document.getElementById("addedchild");
-                if (remDef)
-                    document.body.removeChild(remDef);
-            }, 10000);
-            // console.log(selectedText);
+                timer = setTimeout(() => {
+                    let remDef = document.getElementById("addedchild");
+                    if (remDef)
+                        document.body.removeChild(remDef);
+                }, 10000);
+                // console.log(selectedText);
+            }
+            callingWordDesc(url);
         }
-        callingWordDesc(url);
     }
     // (function () {
 

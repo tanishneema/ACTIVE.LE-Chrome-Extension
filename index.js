@@ -444,7 +444,6 @@ function pauseReminder() {
             // console.log("complete");
         })
     })
-
 }
 
 function resumeReminder() {
@@ -524,26 +523,26 @@ function passForgot() {
 document.getElementById('option').addEventListener("click", optionpage);
 
 function optionpage() {
-    chrome.storage.sync.get(["password"], function (result) {
-        if (result.password === undefined) {
-            // alert("Something went wrong.");
-            // chrome.storage.sync.clear();
-            // // chrome.runtime.reload();
-            // window.close();
-        } else {
-            let pass = prompt('Enter Password');
-            if (result.password === pass) {
-                chrome.runtime.openOptionsPage();
-                // chrome.storage.sync.clear();
-                // chrome.runtime.reload();
-                window.close();
-            }
-            else {
-                alert("Wrong Password");
-            }
-        }
-        // change(result.time);
-    });
+    // chrome.storage.sync.get(["password"], function (result) {
+    //     if (result.password === undefined) {
+    //         // alert("Something went wrong.");
+    //         // chrome.storage.sync.clear();
+    //         // // chrome.runtime.reload();
+    //         // window.close();
+    //     } else {
+    //         let pass = prompt('Enter Password');
+    //         if (result.password === pass) {
+    chrome.runtime.openOptionsPage();
+    window.close();
+    // chrome.storage.sync.clear();
+    // chrome.runtime.reload();
+    //         }
+    //         else {
+    //             alert("Wrong Password");
+    //         }
+    //     }
+    //     // change(result.time);
+    // });
     // chrome.storage.sync.clear();
     // chrome.runtime.reload();
 }
@@ -910,31 +909,35 @@ chrome.storage.sync.get(["rate"], function (res) {
 document.getElementById('st').addEventListener("click", cb);
 
 function cb() {
-    // console.log("saving");
-    if (document.querySelector('input[name="crate"]:checked') == true) {
-        let rate = document.querySelector('input[name="crate"]:checked').value;
-        chrome.storage.sync.get(["password"], function (res) {
-            if (res.password != undefined) {
-                let pass = prompt("Enter password");
-                if (res.password == pass) {
-                    chrome.storage.sync.set({ rate: rate }, function () {
-                        // chrome.runtime.reload();
-                        back();
-                        // document.getElementById("timming").style.display = "none";
-                        // document.getElementById("optionbar").style.display = "inline-block";
-                        // document.getElementById("reset").style.display = "inline-block";
-                        // document.getElementById("fpassword").style.display = "inline-block";
-                        // document.getElementById("option").style.display = "inline-block";
-                        // document.getElementById("working").style.display = "block";
-                        // document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
-                        // window.close();
-                        // alert(rate);
-                    });
-                }
+    console.log("saving");
+    // if (document.querySelector('input[name="crate"]:checked') == true) {
+    console.log("saving1");
+    let rate = document.querySelector('input[name="crate"]:checked').value;
+    chrome.storage.sync.get(["password"], function (res) {
+        console.log("saving2");
+        if (res.password == undefined) { }
+        else {
+            console.log("saving3");
+            let pass = prompt("Enter password");
+            if (res.password == pass) {
+                chrome.storage.sync.set({ rate: rate }, function () {
+                    // chrome.runtime.reload();
+                    back();
+                    // document.getElementById("timming").style.display = "none";
+                    // document.getElementById("optionbar").style.display = "inline-block";
+                    // document.getElementById("reset").style.display = "inline-block";
+                    // document.getElementById("fpassword").style.display = "inline-block";
+                    // document.getElementById("option").style.display = "inline-block";
+                    // document.getElementById("working").style.display = "block";
+                    // document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
+                    // window.close();
+                    // alert(rate);
+                });
             }
-        });
-        // console.log("object");
-    }
+        }
+    });
+    // console.log("object");
+    // }
 }
 
 // Changing Theme
@@ -1000,3 +1003,104 @@ chrome.storage.sync.get(["theme"], function (res) {
         }
     }
 });
+
+// User Identification
+// chrome.identity.getProfileUserInfo({ 'accountStatus': 'ANY' }, function (info) {
+//     let mailId = info.email;
+//     if (mailId != "")
+//         document.getElementById("uEmail").style.display = "none";
+// });
+
+// About Page Slider
+const body = document.body;
+const slds = document.querySelectorAll('.sld');
+const lBtn = document.getElementById('larrow');
+const rBtn = document.getElementById('rarrow');
+
+let actvSld = 0;
+
+rBtn.addEventListener('click', () => {
+    actvSld++;
+    if (actvSld > slds.length - 1)
+        actvSld = 0;
+    setActvSld();
+})
+
+lBtn.addEventListener('click', () => {
+    actvSld--;
+    if (actvSld < 0)
+        actvSld = slds.length - 1;
+    setActvSld();
+})
+
+function setActvSld() {
+    const AboutHeading = document.getElementById('AbtHead');
+    if (AboutHeading.innerText == "# About ACTIVE.LE")
+        AboutHeading.innerText = ("# About Us");
+    else
+        AboutHeading.innerText = ("# About ACTIVE.LE");
+    slds.forEach((sld) => sld.classList.remove('actv'));
+    slds[actvSld].classList.add('actv');
+}
+
+// Contact Us Page Slider
+const slides = document.querySelectorAll('.slide');
+const leftBtn = document.getElementById('left');
+const rightBtn = document.getElementById('right');
+
+let activeSlide = 0;
+
+rightBtn.addEventListener('click', () => {
+    activeSlide++;
+    if (activeSlide > slides.length - 1)
+        activeSlide = 0;
+    setActiveSlide();
+})
+
+leftBtn.addEventListener('click', () => {
+    activeSlide--;
+    if (activeSlide < 0)
+        activeSlide = slides.length - 1;
+    setActiveSlide();
+})
+
+function setActiveSlide() {
+    slides.forEach((slide) => slide.classList.remove('active'));
+    slides[activeSlide].classList.add('active');
+}
+
+// Open Mail from contact us Page
+document.getElementById('Mail').addEventListener('click', openMail);
+function openMail() {
+    chrome.tabs.create({ url: `mailto:tempc2g@gmail.com` });
+}
+
+// Open Call from contact us Page
+document.getElementById('Call').addEventListener('click', openCall);
+function openCall() {
+    chrome.tabs.create({ url: `tel:+918435338383` });
+}
+
+// Open Maps from contact us Page
+document.getElementById('Maps').addEventListener('click', openMaps);
+function openMaps() {
+    chrome.tabs.create({ url: `https://www.google.com/maps/place/Crimson+Boutique/@22.7153655,75.9046524,17z/data=!3m1!4b1!4m6!3m5!1s0x3962e3b90ee744c9:0xf038f5ee5e3a7123!8m2!3d22.7153655!4d75.9068411!16s%2Fg%2F11jp_p_plf` });
+}
+
+// Open Linkedin from contact us Page
+document.getElementById('Link').addEventListener('click', openLinkedin);
+function openLinkedin() {
+    chrome.tabs.create({ url: `https://www.linkedin.com/in/tanish-neema/` });
+}
+
+// Open Github from contact us Page
+document.getElementById('Git').addEventListener('click', openGithub);
+function openGithub() {
+    chrome.tabs.create({ url: `https://github.com/tanishneema` });
+}
+
+// Open Facebook from contact us Page
+document.getElementById('Face').addEventListener('click', openFace);
+function openFace() {
+    chrome.tabs.create({ url: `https://www.facebook.com/tanish.neema.33` });
+}

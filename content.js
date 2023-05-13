@@ -15,8 +15,7 @@ let add = document.location.href;
 let data = [];
 let date = new Date();
 
-// console.log(add +"this is the website link");
-// console.log("content script");
+// Save history when Study Timer is on
 chrome.storage.sync.get(["time"], function (r) {
     if (r.time > 0) {
         chrome.storage.sync.get(["number"], function (res) {
@@ -48,47 +47,45 @@ chrome.storage.sync.get(["time"], function (r) {
     }
 })
 
+//Blocking Websites
 chrome.storage.sync.get(["rate"], function (result) {
     if (result.rate === undefined || result.rate === "never") {
     } else if (result.rate === "all") {
-        if (add.indexOf("amazon") == -1 && add.indexOf("netflix") == -1 && add.indexOf("flipkart") == -1 && add.indexOf("myntra") == -1) { }
-        else {
-            alert("Get back to studies");
-            document.write("");
-        }
+        bCheck();
     } else if (result.rate === "study") {
         chrome.storage.sync.get(["time"], function (res) {
             if (res.time === undefined || res.time === 0) { }
             else {
-                alert("Get back to studies");
-                document.write("");
+                bCheck();
+                // alert("Get back to studies");
+                // document.write("");
             }
         });
     } else if (result.rate === "schedule") {
-        if (date.getHours() >= 1 && date.getMinutes() >= 30 && date.getHours() <= 4 && date.getMinutes() <= 30) {
+        // 1:00 <= time <= 4:30 : Sleep Time
+        if (date.getHours() >= 1 && date.getHours() <= 4) {
             alert("Sleep Time!!")
-            document.write = "";
+            document.write("");
+            setTimeout(() => { window.stop() }, 0);
         }
         else {
             try {
                 if (add.indexOf("amazon") == -1 && add.indexOf("netflix") == -1 && add.indexOf("flipkart") == -1 && add.indexOf("myntra") == -1) { }
                 else {
-                    if (date.getDay() === 0)
-                        alert("Don't spend much time on this");
-                    else if (date.getDay() === 6) {
-                        if ((date.getHours() >= 19 && date.getMinutes() >= 30) || (date.getHours() <= 1 && date.getMinutes() <= 30))
-                            alert("Don't spend much time on this");
-                        else {
-                            alert("Get back to studies");
-                            document.write("");
-                        }
+                    // See the day of week
+                    // 0 represent Sunday
+                    if (date.getDay() === 0) {
+                        // alert("Don't spend much time on this");
+                    } else if (date.getDay() === 6) {
+                        if ((date.getHours() >= 19 && date.getMinutes() >= 30) || (date.getHours() <= 1 && date.getMinutes() <= 30)) {
+                            // alert("Don't spend much time on this");
+                        } else
+                            block();
                     } else {
-                        if ((date.getHours() >= 21 && date.getMinutes() >= 30) || (date.getHours() <= 1 && date.getMinutes() <= 30))
-                            alert("Don't spend much time on this");
-                        else {
-                            alert("Get back to studies");
-                            document.write("");
-                        }
+                        if ((date.getHours() >= 21 && date.getMinutes() >= 30) || (date.getHours() <= 1 && date.getMinutes() <= 30)) {
+                            // alert("Don't spend much time on this");
+                        } else
+                            block();
                     }
                 }
             } catch (e) {
@@ -98,7 +95,21 @@ chrome.storage.sync.get(["rate"], function (result) {
     }
 });
 
+// CHechk the need to block or not
+function bCheck() {
+    if (add.indexOf("amazon") == -1 && add.indexOf("netflix") == -1 && add.indexOf("flipkart") == -1 && add.indexOf("myntra") == -1) { }
+    else
+        block();
+}
 
+// Block
+function block() {
+    alert("Get back to studies");
+    document.write("");
+    setTimeout(() => { window.stop() }, 0);
+}
+
+// Youtube Bookmark Button
 (() => {
     let youtubeLeftControls, youtubePlayer;
     let currentVideo = "";

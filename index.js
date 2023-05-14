@@ -16,6 +16,7 @@
 //         return false;
 // };
 
+// Set up
 chrome.storage.sync.get(["name"], function (result) {
     if (result.name === undefined) {
         document.getElementById("timming").style.display = "none";
@@ -154,7 +155,7 @@ function saveName() {
     });
 }
 
-// Working with alarms 
+// Functions performing on swtiching alarm on and off
 let time = 0;
 // let input = document.getElementById('hours');
 

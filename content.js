@@ -1,3 +1,6 @@
+// Solving errors
+// if (chrome.runtime.id == undefined) return;
+
 // Blocking Offensive Words
 replaceText(document.body);
 
@@ -214,7 +217,6 @@ function wordSelector() {
     // const selectedText = window.getSelection();
     let size = 0;
     if (selectedText != "") {
-
         size = window.getComputedStyle(selectedText.anchorNode.parentElement, null).getPropertyValue('font-size');
         // console.log(size);
         selectedText = selectedText.toString();
@@ -247,8 +249,8 @@ function wordSelector() {
             var node = document.createElement("div");
             node.id = "addedchild";
             node.style.position = "absolute";
-            node.style.zIndex = "1";
-            node.style.backgroundColor = "pink";
+            node.style.zIndex = "9999";
+            node.style.backgroundColor = "#00dfc4";
             node.style.color = "black";
             node.style.top = `${height}px`
             node.style.left = `${side}px`
@@ -267,68 +269,42 @@ function wordSelector() {
                 // console.log(data);
                 // console.log("next");
                 else {
+                    let def = "";
                     if (data[0].text !== undefined) {
                         // console.log("0");
-                        let def = data[0].text;
-                        def = def.replace("<xref>", "")
-                        def = def.replace("</xref>", "")
-                        def = def.replace("<em>", "")
-                        def = def.replace("</em>", "")
-                        def = def.replace(`<internalXref urlencoded="center">`, "")
-                        def = def.replace(`</internalXref>`, "")
-                        node.innerHTML = def;
+                        def = data[0].text;
+                        // node = displayMean(def, node);
                         // document.body.appendChild(node);
                         // console.log(def);
                     } else if (data[1].text) {
                         // console.log("1");
-                        let def = data[1].text;
-                        def = def.replace("<xref>", "")
-                        def = def.replace("</xref>", "")
-                        def = def.replace("<em>", "")
-                        def = def.replace("</em>", "")
-                        def = def.replace(`<internalXref urlencoded="center">`, "")
-                        def = def.replace(`</internalXref>`, "")
-                        node.innerHTML = def;
+                        def = data[1].text;
+                        // node = displayMean(def, node);
                         // document.body.appendChild(node);
                         // console.log(def);
                     } else if (data[2].text) {
                         // console.log("2");
-                        let def = data[2].text;
-                        def = def.replace("<xref>", "")
-                        def = def.replace("</xref>", "")
-                        def = def.replace("<em>", "")
-                        def = def.replace("</em>", "")
-                        def = def.replace(`<internalXref urlencoded="center">`, "")
-                        def = def.replace(`</internalXref>`, "")
-                        node.innerHTML = def;
+                        def = data[2].text;
+                        // node = displayMean(def, node);
                         // document.body.appendChild(node);
                         // console.log(def);
                     } else if (data[3].text) {
                         // console.log("3");
-                        let def = data[3].text;
-                        def = def.replace("<xref>", "")
-                        def = def.replace("</xref>", "")
-                        def = def.replace("<em>", "")
-                        def = def.replace("</em>", "")
-                        def = def.replace(`<internalXref urlencoded="center">`, "")
-                        def = def.replace(`</internalXref>`, "")
-                        node.innerHTML = def;
+                        def = data[3].text;
+                        // node = displayMean(def, node);
                         // document.body.appendChild(node);
                         // console.log(def);
                         // console.log(data[3].text);
                     } else if (data[4].text) {
                         // console.log("4");
-                        let def = data[4].text;
-                        def = def.replace("<xref>", "")
-                        def = def.replace("</xref>", "")
-                        def = def.replace("<em>", "")
-                        def = def.replace("</em>", "")
-                        def = def.replace(`<internalXref urlencoded="center">`, "")
-                        def = def.replace(`</internalXref>`, "")
-                        node.innerHTML = def;
-                    } else {
-                        node.innerHTML = "Definition Unavailable"
+                        def = data[4].text;
                     }
+                    node = displayMean(def, node);
+                    if (node.innerHTML == "")
+                        node.innerHTML = "Definition Unavailable"
+                    // else {
+                    //     node.innerHTML = "Definition Unavailable"
+                    // }
                 }
                 document.body.appendChild(node);
                 // if (node.innerHTML.trim().length == 0) { }
@@ -355,6 +331,18 @@ function wordSelector() {
     // })();
 }
 
+// Display Meaning
+function displayMean(text, node) {
+    text = text.replace("<xref>", "");
+    text = text.replace("</xref>", "");
+    text = text.replace("<em>", "");
+    text = text.replace("</em>", "");
+    text = text.replace(`<internalXref urlencoded="center">`, "");
+    text = text.replace(`</internalXref>`, "");
+    node.innerHTML = text;
+    return node;
+}
+
 // Tracking Mouse for Movement
 window.addEventListener("mouseover", mouseMove);
 
@@ -368,31 +356,18 @@ function mouseMove() {
         hour = hour.length > 1 ? hour : "0" + hour;
         min = min.length > 1 ? min : "0" + min;
         sec = sec.length > 1 ? sec : "0" + sec;
-        // let s = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
         let s = hour + ":" + min + ":" + sec;
-        // console.log(s);
-        // console.log("0");
-        // if(s.split(":")[2] > (os.split(":")[2] + 5)){}
-        if (res.s === undefined) {
-            // console.log("1");
+        if (res.s === undefined)
             chrome.storage.sync.set({ s: s });
-        }
         else {
-            // console.log("2");
             let os = res.s;
-            // console.log(s + " ", os);
-            // console.log(s + " " + os);
-            // console.log(parseInt(os.split(":")[2]) + 5);
             if (s.split(":")[2] >= (parseInt(os.split(":")[2]) + 6)) {
-                // console.log("3");
                 chrome.storage.sync.set({ s: s });
             }
             else if (s.split(":")[1] > os.split(":")[1]) {
-                // console.log("4");
                 chrome.storage.sync.set({ s: s });
             }
             else if (s.split(":")[0] !== os.split(":")[0]) {
-                // console.log("5");
                 chrome.storage.sync.set({ s: s });
             } else {
                 console.log("not 5 sec");

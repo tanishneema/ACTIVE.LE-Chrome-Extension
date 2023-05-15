@@ -1105,3 +1105,19 @@ document.getElementById('Face').addEventListener('click', openFace);
 function openFace() {
     chrome.tabs.create({ url: `https://www.facebook.com/tanish.neema.33` });
 }
+
+// Hasing the password before saving
+async function hashText(text) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(text);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return hashHex;
+}
+
+// Calling the hash function and returning the Promise Result
+async function run(text) {
+    const hash = await hashText(text);
+    return hash;
+}

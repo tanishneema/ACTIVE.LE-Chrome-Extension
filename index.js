@@ -17,8 +17,9 @@
 // };
 
 // Set up
-chrome.storage.sync.get(["name"], function (result) {
-    if (result.name === undefined) {
+chrome.storage.sync.get(["details"], function (result) {
+    console.log(result.details.name);
+    if (result.details.name === undefined) {
         document.getElementById("timming").style.display = "none";
         document.getElementById("intro").style.display = "block";
         // document.getElementById("optionbar").style.display = "none";
@@ -132,17 +133,20 @@ function changeName() {
 
 document.getElementById('subName').addEventListener("click", saveName);
 
-function saveName() {
+async function saveName() {
     var name = document.getElementById('nameInput').value;
     name = name.trim();
     var pass = document.getElementById('passInput').value;
     pass = pass.trim();
+    let hashC = await run(pass);
     var ques = document.getElementById('secque').value;
     ques = ques.trim();
     var ans = document.getElementById('ans').value;
     ans = ans.trim();
+    let hashA = await run(ans);
     const n = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-    chrome.storage.sync.set({ name: n, password: pass, question: ques, answer: ans }, function () {
+    chrome.storage.sync.set({ details: { name: n, password: hashC, question: ques, answer: hashA } }, function () {
+        console.log(hashC);
         document.getElementById("timming").style.display = "block";
 
         // document.getElementById("reset").style.display = "inline-block";
@@ -256,52 +260,61 @@ document.getElementById('m120').addEventListener("click", m120);
 document.getElementById('m150').addEventListener("click", m150);
 
 function m45() {
-    if (document.getElementById("sr").innerText === "Set Time") {
-        setReminder(1);
-        // console.log("it is set reminder");
-    } else {
-        addReminder(1);
-    }
+    setRem(45);
+    // if (document.getElementById("sr").innerText === "Set Time") {
+    //     setReminder(45);
+    //     // console.log("it is set reminder");
+    // } else {
+    //     addReminder(45);
+    // }
 }
 
 function m60() {
-    if (document.getElementById("sr").innerText === "Set Time") {
-        setReminder(60);
-        // console.log("it is set reminder");
-    } else {
-        addReminder(60);
-    }
+    setRem(60);
+    // if (document.getElementById("sr").innerText === "Set Time") {
+    //     setReminder(60);
+    //     // console.log("it is set reminder");
+    // } else {
+    //     addReminder(60);
+    // }
     // setReminder(60);
 }
 
 function m90() {
-    if (document.getElementById("sr").innerText === "Set Time") {
-        setReminder(90);
-        // console.log("it is set reminder");
-    } else {
-        addReminder(90);
-    }
+    setRem(90);
+    // setRem(120);
+    // if (document.getElementById("sr").innerText === "Set Time") {
+    //     setReminder(90);
+    //     // console.log("it is set reminder");
+    // } else {
+    //     addReminder(90);
+    // }
     // setReminder(90);
 }
 
 function m120() {
-    if (document.getElementById("sr").innerText === "Set Time") {
-        setReminder(120);
-        // console.log("it is set reminder");
-    } else {
-        addReminder(120);
-    }
+    setRem(120);
+    // if (document.getElementById("sr").innerText === "Set Time") {
+    //     setReminder(120);
+    //     // console.log("it is set reminder");
+    // } else {
+    //     addReminder(120);
+    // }
     // setReminder(120);
 }
 
 function m150() {
+    setRem(150);
+    // setReminder(150);
+}
+
+function setRem(time) {
     if (document.getElementById("sr").innerText === "Set Time") {
-        setReminder(150);
+        setReminder(time);
         // console.log("it is set reminder");
     } else {
-        addReminder(150);
+        addReminder(time);
     }
-    // setReminder(150);
 }
 
 function setReminder(t) {
@@ -365,15 +378,16 @@ function addReminder(t) {
 
 document.getElementById('remove').addEventListener("click", removeReminder);
 
-function removeReminder() {
-    chrome.storage.sync.get(["password"], function (result) {
-        if (result.password === undefined) {
+async function removeReminder() {
+    await chrome.storage.sync.get(["details"], async function (result) {
+        if (result.details.password === undefined) {
             // alert("Caught in some errors.");
             chrome.storage.sync.clear();
         }
         else {
             let pass = prompt('Enter Password');
-            if (pass === result.password) {
+            let hashC = await run(pass);
+            if (hashC === result.details.password) {
                 time = 0;
                 chrome.storage.sync.set({ time: time }, function () {
                     change(time);
@@ -469,9 +483,9 @@ chrome.storage.sync.get(["time"], function (result) {
 // Resetting
 document.getElementById('reset').addEventListener("click", resetting);
 
-function resetting() {
-    chrome.storage.sync.get(["password"], function (result) {
-        if (result.password === undefined) {
+async function resetting() {
+    await chrome.storage.sync.get(["details"], async function (result) {
+        if (result.details.password === undefined) {
             chrome.storage.sync.clear();
             // alert("Something went wrong.");
             // chrome.storage.sync.clear();
@@ -480,7 +494,8 @@ function resetting() {
         }
         else {
             let pass = prompt('Enter Password');
-            if (result.password === pass) {
+            let hashC = await run(pass);
+            if (result.details.password === hashC) {
                 chrome.storage.sync.clear();
                 // chrome.runtime.reload();
                 window.close();
@@ -497,20 +512,21 @@ function resetting() {
 // Forgot Password
 document.getElementById('fpassword').addEventListener("click", passForgot);
 
-function passForgot() {
-    chrome.storage.sync.get(["question"], function (result) {
-        if (result.question === undefined);
+async function passForgot() {
+    await chrome.storage.sync.get(["details"], async function (result) {
+        if (result.details.question === undefined);
         else {
-            let ans = prompt("Question: " + result.question);
-            chrome.storage.sync.get(["answer"], function (res) {
-                if (res.answer === ans) {
-                    chrome.storage.sync.clear();
-                    // chrome.runtime.reload();
-                    window.close();
-                } else {
-                    alert("Wrong Answer");
-                }
-            });
+            let ans = prompt("Question: " + result.details.question);
+            let hashC = await run(ans);
+            // chrome.storage.sync.get(["answer"], function (res) {
+            if (result.details.answer === hashC) {
+                chrome.storage.sync.clear();
+                // chrome.runtime.reload();
+                window.close();
+            } else {
+                alert("Wrong Answer");
+            }
+            // });
         }
     });
     // let bar = confirm('Confirm or deny');
@@ -647,8 +663,8 @@ function back() {
     document.getElementById("settingsI").style.display = "none";
     document.getElementById("back").style.display = "none";
 
-    chrome.storage.sync.get(["name"], function (result) {
-        if (result.name === undefined) {
+    chrome.storage.sync.get(["details"], function (result) {
+        if (result.details.name === undefined) {
             // document.getElementById("optionbar").style.display = "none";
             document.getElementById("timming").style.display = "none";
             document.getElementById("heading").style.display = "block";
@@ -909,18 +925,19 @@ chrome.storage.sync.get(["rate"], function (res) {
 // Changing when to block websites
 document.getElementById('st').addEventListener("click", cb);
 
-function cb() {
+async function cb() {
     console.log("saving");
     // if (document.querySelector('input[name="crate"]:checked') == true) {
     console.log("saving1");
     let rate = document.querySelector('input[name="crate"]:checked').value;
-    chrome.storage.sync.get(["password"], function (res) {
+    await chrome.storage.sync.get(["details"], async function (res) {
         console.log("saving2");
-        if (res.password == undefined) { }
+        if (res.details.password == undefined) { }
         else {
             console.log("saving3");
             let pass = prompt("Enter password");
-            if (res.password == pass) {
+            let hashC = await run(pass);
+            if (res.details.password == hashC) {
                 chrome.storage.sync.set({ rate: rate }, function () {
                     // chrome.runtime.reload();
                     back();

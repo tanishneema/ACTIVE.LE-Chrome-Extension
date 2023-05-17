@@ -129,17 +129,19 @@ let sN = document.getElementById('subName');
 if (sN != null)
     sN.addEventListener("click", saveName);
 
-function saveName() {
+async function saveName() {
     var name = document.getElementById('nameInput').value;
     name = name.trim();
     var pass = document.getElementById('passInput').value;
     pass = pass.trim();
+    let hashP = await run(pass);
     var ques = document.getElementById('secque').value;
     ques = ques.trim();
     var ans = document.getElementById('ans').value;
     ans = ans.trim();
+    let hashA = await run(ans);
     const n = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-    chrome.storage.sync.set({ details: { name: n, password: pass, question: ques, answer: ans } }, function () {
+    chrome.storage.sync.set({ details: { name: n, password: hashP, question: ques, answer: hashA } }, function () {
         document.getElementById("definetime").style.display = "block";
         document.getElementById("define").style.display = "none";
     });
@@ -150,10 +152,12 @@ let sN1 = document.getElementById('subName1');
 if (sN1 != null)
     sN1.addEventListener("click", resetting);
 
-function resetting() {
+async function resetting() {
     // console.log("call 1");
     var op = document.getElementById('passInput1').value;
+    let hashO = await run(op);
     var np = document.getElementById('passInput2').value;
+    let hashN = await run(np);
     var cp = document.getElementById('passInput3').value;
     // let pass = prompt('Enter Password');
     chrome.storage.sync.get(["details"], function (result) {
@@ -165,7 +169,7 @@ function resetting() {
             // chrome.runtime.reload();
             window.close();
         }
-        if (result.details.password === op && np !== op && np === cp) {
+        if (result.details.password === hashO && np !== op && np === cp) {
             // console.log("call 4");
             document.getElementById('passInput1').style.backgroundColor = "#1d2b3a";
             document.getElementById('passInput2').style.backgroundColor = "#1d2b3a";
@@ -173,7 +177,7 @@ function resetting() {
             document.getElementById('passInput1').value = "";
             document.getElementById('passInput2').value = "";
             document.getElementById('passInput3').value = "";
-            result.details.password = np;
+            result.details.password = hashN;
             chrome.storage.sync.set({ details: result.details }, function () {
                 // console.log("call 5");
             })
@@ -328,4 +332,20 @@ if (cH != null)
 function clearHistory() {
     chrome.storage.sync.set({ number: 0, history: [] }, function () { });
     window.close();
+}
+
+// Hasing the password before saving
+async function hashText(text) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(text);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return hashHex;
+}
+
+// Calling the hash function and returning the Promise Result
+async function run(text) {
+    const hash = await hashText(text);
+    return hash;
 }

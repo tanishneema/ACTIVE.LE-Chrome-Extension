@@ -15,42 +15,47 @@
 //     )
 //         return false;
 // };
-
+setUp();
 // Set up
-chrome.storage.sync.get(["details"], function (result) {
-    console.log(result.details.name);
-    if (result.details.name === undefined) {
-        document.getElementById("timming").style.display = "none";
-        document.getElementById("intro").style.display = "block";
-        // document.getElementById("optionbar").style.display = "none";
-        document.getElementById("working").style.display = "none";
-    } else {
-        chrome.storage.sync.get(["rate"], function (res) {
-            if (res.rate === undefined) {
-                // document.getElementById("optionbar").style.display = "none";
-                document.getElementById("timming").style.display = "block";
-                document.getElementById("intro").style.display = "none";
-                document.getElementById("working").style.display = "none";
-            } else {
-                // document.getElementById("optionbar").style.display = "inline-block";
-                document.getElementById("intro").style.display = "none";
-                document.getElementById("timming").style.display = "none";
-                document.getElementById("reset").style.display = "inline-block";
-                document.getElementById("fpassword").style.display = "inline-block";
-                document.getElementById("option").style.display = "inline-block";
-                document.getElementById("working").style.display = "block";
-                // document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
-                // alert("Wrong Answer");
-            }
-        });
-        // document.getElementById("reset").style.display = "inline-block";
-        // document.getElementById("fpassword").style.display = "inline-block";
-        // document.getElementById("option").style.display = "inline-block";
-        // document.getElementById("working").style.display = "block";
-        // document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
-    }
-    // console.log(result);
-});
+function setUp() {
+    chrome.storage.sync.get(["details"], function (result) {
+        // console.log(result.details.name);
+        if (result.details === undefined) {
+            document.getElementById("timming").style.display = "none";
+            document.getElementById("intro").style.display = "block";
+            document.getElementById("heading").style.display = "block";
+            // document.getElementById("optionbar").style.display = "none";
+            document.getElementById("working").style.display = "none";
+        } else {
+            chrome.storage.sync.get(["rate"], function (res) {
+                if (res.rate === undefined) {
+                    document.getElementById("heading").style.display = "block";
+                    // document.getElementById("optionbar").style.display = "none";
+                    document.getElementById("timming").style.display = "block";
+                    document.getElementById("intro").style.display = "none";
+                    document.getElementById("working").style.display = "none";
+                } else {
+                    // document.getElementById("optionbar").style.display = "inline-block";
+                    document.getElementById("intro").style.display = "none";
+                    document.getElementById("timming").style.display = "none";
+                    document.getElementById("reset").style.display = "inline-block";
+                    document.getElementById("fpassword").style.display = "inline-block";
+                    document.getElementById("option").style.display = "inline-block";
+                    document.getElementById("heading").style.display = "block";
+                    document.getElementById("working").style.display = "block";
+                    // document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
+                    // alert("Wrong Answer");
+                }
+            });
+            // document.getElementById("reset").style.display = "inline-block";
+            // document.getElementById("fpassword").style.display = "inline-block";
+            // document.getElementById("option").style.display = "inline-block";
+            // document.getElementById("working").style.display = "block";
+            // document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
+        }
+        // console.log(result);
+    });
+}
 
 // Taking name input 
 // let submitName = document.getElementById('subName');
@@ -380,7 +385,7 @@ document.getElementById('remove').addEventListener("click", removeReminder);
 
 async function removeReminder() {
     await chrome.storage.sync.get(["details"], async function (result) {
-        if (result.details.password === undefined) {
+        if (result.details === undefined) {
             // alert("Caught in some errors.");
             chrome.storage.sync.clear();
         }
@@ -485,7 +490,7 @@ document.getElementById('reset').addEventListener("click", resetting);
 
 async function resetting() {
     await chrome.storage.sync.get(["details"], async function (result) {
-        if (result.details.password === undefined) {
+        if (result.details === undefined) {
             chrome.storage.sync.clear();
             // alert("Something went wrong.");
             // chrome.storage.sync.clear();
@@ -514,7 +519,7 @@ document.getElementById('fpassword').addEventListener("click", passForgot);
 
 async function passForgot() {
     await chrome.storage.sync.get(["details"], async function (result) {
-        if (result.details.question === undefined);
+        if (result.details === undefined);
         else {
             let ans = prompt("Question: " + result.details.question);
             let hashC = await run(ans);
@@ -662,43 +667,43 @@ function back() {
     document.getElementById("contactI").style.display = "none";
     document.getElementById("settingsI").style.display = "none";
     document.getElementById("back").style.display = "none";
-
-    chrome.storage.sync.get(["details"], function (result) {
-        if (result.details.name === undefined) {
-            // document.getElementById("optionbar").style.display = "none";
-            document.getElementById("timming").style.display = "none";
-            document.getElementById("heading").style.display = "block";
-            document.getElementById("working").style.display = "none";
-            document.getElementById("intro").style.display = "block";
-        } else {
-            chrome.storage.sync.get(["rate"], function (res) {
-                if (res.rate === undefined) {
-                    // document.getElementById("optionbar").style.display = "none";
-                    document.getElementById("heading").style.display = "block";
-                    document.getElementById("timming").style.display = "block";
-                    document.getElementById("intro").style.display = "none";
-                    document.getElementById("working").style.display = "none";
-                } else {
-                    // document.getElementById("optionbar").style.display = "inline-block";
-                    document.getElementById("heading").style.display = "block";
-                    document.getElementById("intro").style.display = "none";
-                    document.getElementById("timming").style.display = "none";
-                    document.getElementById("reset").style.display = "inline-block";
-                    document.getElementById("fpassword").style.display = "inline-block";
-                    document.getElementById("option").style.display = "inline-block";
-                    document.getElementById("working").style.display = "block";
-                    // document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
-                    // alert("Wrong Answer");
-                }
-            });
-            // document.getElementById("reset").style.display = "inline-block";
-            // document.getElementById("fpassword").style.display = "inline-block";
-            // document.getElementById("option").style.display = "inline-block";
-            // document.getElementById("working").style.display = "block";
-            // document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
-        }
-        // console.log(result);
-    });
+    setUp();
+    // chrome.storage.sync.get(["details"], function (result) {
+    //     if (result.details === undefined) {
+    //         // document.getElementById("optionbar").style.display = "none";
+    //         document.getElementById("timming").style.display = "none";
+    //         document.getElementById("heading").style.display = "block";
+    //         document.getElementById("working").style.display = "none";
+    //         document.getElementById("intro").style.display = "block";
+    //     } else {
+    //         chrome.storage.sync.get(["rate"], function (res) {
+    //             if (res.rate === undefined) {
+    //                 // document.getElementById("optionbar").style.display = "none";
+    //                 document.getElementById("heading").style.display = "block";
+    //                 document.getElementById("timming").style.display = "block";
+    //                 document.getElementById("intro").style.display = "none";
+    //                 document.getElementById("working").style.display = "none";
+    //             } else {
+    //                 // document.getElementById("optionbar").style.display = "inline-block";
+    //                 document.getElementById("heading").style.display = "block";
+    //                 document.getElementById("intro").style.display = "none";
+    //                 document.getElementById("timming").style.display = "none";
+    //                 document.getElementById("reset").style.display = "inline-block";
+    //                 document.getElementById("fpassword").style.display = "inline-block";
+    //                 document.getElementById("option").style.display = "inline-block";
+    //                 document.getElementById("working").style.display = "block";
+    //                 // document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
+    //                 // alert("Wrong Answer");
+    //             }
+    //         });
+    //         // document.getElementById("reset").style.display = "inline-block";
+    //         // document.getElementById("fpassword").style.display = "inline-block";
+    //         // document.getElementById("option").style.display = "inline-block";
+    //         // document.getElementById("working").style.display = "block";
+    //         // document.getElementById("greet").innerHTML = "Hello " + result.name + ", it's time to study.";
+    //     }
+    //     // console.log(result);
+    // });
 }
 
 // To-Do List
@@ -932,7 +937,7 @@ async function cb() {
     let rate = document.querySelector('input[name="crate"]:checked').value;
     await chrome.storage.sync.get(["details"], async function (res) {
         console.log("saving2");
-        if (res.details.password == undefined) { }
+        if (res.details === undefined) { }
         else {
             console.log("saving3");
             let pass = prompt("Enter password");

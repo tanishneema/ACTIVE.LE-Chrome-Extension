@@ -362,16 +362,17 @@ function mouseMove() {
         else {
             let os = res.s;
             if (s.split(":")[2] >= (parseInt(os.split(":")[2]) + 6)) {
-                chrome.storage.sync.set({ s: s });
             }
             else if (s.split(":")[1] > os.split(":")[1]) {
-                chrome.storage.sync.set({ s: s });
+                // chrome.storage.sync.set({ s: s });
             }
             else if (s.split(":")[0] !== os.split(":")[0]) {
-                chrome.storage.sync.set({ s: s });
+                // chrome.storage.sync.set({ s: s });
             } else {
                 console.log("not 5 sec");
+                return;
             }
+            chrome.storage.sync.set({ s: s });
             // if ((s.split(":")[2] > (os.split(":")[2] + 5) || (s.split(":")[1] > (os.split(":")[1]))) && s.split(":")[1] < (os.split(":")[1] + 1)) {
             //     chrome.storage.sync.set({ s: s });
             //     // chrome.storage.sync.set({ s: s });
@@ -434,20 +435,16 @@ var intervalId = window.setInterval(function () {
                         // sec = sec.length > 1 ? sec : "0" + sec;
                         // let s1 = hour + ":" + min + ":" + sec;
                         if (s1.split(":")[0] !== os.split(":")[0]) {
-                            chrome.storage.sync.set({ s: s1 });
-                            console.log("Wake up");
-                            alert("wake up");
-                            console.log("01");
-                            console.log(s + " " + os + "1111");
-                            window.close();
+                            startAlarm();
+                            // chrome.storage.sync.set({ s: s1 });
+                            // console.log("Wake up");
+                            // alert("wake up");
+                            // console.log("01");
+                            // console.log(s + " " + os + "1111");
+                            // window.close();
                         }
                         else if (s.split(":")[1] >= (parseInt(os.split(":")[1]) + 5)) {
-                            chrome.storage.sync.set({ s: s1 });
-                            console.log("Wake up");
-                            window.close();
-                            alert("wake up");
-                            console.log("02");
-                            console.log(s + " " + os + "1111");
+                            startAlarm();
                         }
                     }
                 })
@@ -455,6 +452,16 @@ var intervalId = window.setInterval(function () {
         });
     }
 }, 30000);
+
+function startAlarm() {
+    chrome.storage.sync.set({ s: s1 });
+    alert("wake up");
+    console.log("Wake up");
+    window.close();
+    console.log("02");
+    console.log(s + " " + os + "1111");
+
+}
 
 // function downloading() {
 //     let jspdf = document.createElement("script");

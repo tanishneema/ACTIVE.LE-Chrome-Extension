@@ -6,7 +6,7 @@
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  max-height: 200px;
+  /* max-height: 200px; */
 }
 
 body {
@@ -55,6 +55,10 @@ hr {
   margin-bottom: 10px;
 }
 
+#define {
+  height: 250px;
+}
+
 #define input {
   margin: 0 0 10px 0;
   width: 70%;
@@ -94,9 +98,9 @@ hr {
   margin-left: 20px;
 }
 
-#definetime #radiocheck {
+/* #definetime #radiocheck {
   transform: translateX(-90px);
-}
+} */
 
 #definetime button {
   width: 95%;
@@ -144,9 +148,7 @@ div button {
   margin: 0 0 15px 0;
 }
 
-div button:hover,
-div button:active,
-div button:focus {
+div button:hover {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   -webkit-transform: scale(1.1);
   transform: scale(1.1);

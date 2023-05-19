@@ -1143,3 +1143,86 @@ async function run(text) {
     const hash = await hashText(text);
     return hash;
 }
+
+// document.getElementById('').addEventListener('mouseout', function () { });
+// document.getElementById("#reset").addEventListener('mouseout', function () {
+//     console.log("unhover");
+//     let timer = setTimeout(function () {
+//         document.getElementById('resetDesc').display = 'none';
+//         //   $("#div2").hide();
+//     }, 5000);
+//     // document.getElementById('resetDesc').display = 'none';
+// });
+// document.getElementById("reset").onmouseover
+// else
+//     console.log("unhover");
+var timer, removetimer;
+document.getElementById("reset").onmouseover = function () {
+    document.getElementById('fpassDesc').style.display = 'none';
+    document.getElementById('optionDesc').style.display = 'none';
+    // console.log("hover");
+    clearInterval(timer);
+    timer = setTimeout(function () {
+        document.getElementById('resetDesc').style.display = 'block';
+        // console.log("hover");
+        clearInterval(removetimer);
+        removetimer = setTimeout(function () {
+            document.getElementById('resetDesc').style.display = 'none';
+            // console.log("hover");
+        }, 2500);
+    }, 2500);
+};
+// document.getElementById("reset").onmouseleave = function () {
+//     // console.log("hover");
+//     clearInterval(timer);
+//     timer = setTimeout(function () {
+//         document.getElementById('resetDesc').style.display = 'none';
+//         // console.log("hover");
+//     }, 600);
+// };
+document.getElementById("fpassword").onmouseover = function () {
+    document.getElementById('resetDesc').style.display = 'none';
+    document.getElementById('optionDesc').style.display = 'none';
+    // console.log("hover");
+    clearInterval(timer);
+    timer = setTimeout(function () {
+        document.getElementById('fpassDesc').style.display = 'block';
+        clearInterval(removetimer);
+        removetimer = setTimeout(function () {
+            document.getElementById('fpassDesc').style.display = 'none';
+            // console.log("hover");
+        }, 2500);
+        // console.log("hover");
+    }, 2500);
+};
+// document.getElementById("fpassword").onmouseleave = function () {
+//     // console.log("hover");
+//     clearInterval(timer);
+//     timer = setTimeout(function () {
+//         document.getElementById('fpassDesc').style.display = 'none';
+//         // console.log("hover");
+//     }, 600);
+// };
+document.getElementById("option").onmouseover = function () {
+    document.getElementById('resetDesc').style.display = 'none';
+    document.getElementById('fpassDesc').style.display = 'none';
+    // console.log("hover");
+    clearInterval(timer);
+    timer = setTimeout(function () {
+        document.getElementById('optionDesc').style.display = 'block';
+        clearInterval(removetimer);
+        removetimer = setTimeout(function () {
+            document.getElementById('optionDesc').style.display = 'none';
+            // console.log("hover");
+        }, 2500);
+        // console.log("hover");
+    }, 2500);
+};
+// document.getElementById("option").onmouseleave = function () {
+//     // console.log("hover");
+//     clearInterval(timer);
+//     timer = setTimeout(function () {
+//         document.getElementById('optionDesc').style.display = 'none';
+//         // console.log("hover");
+//     }, 600);
+// };

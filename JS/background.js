@@ -1,8 +1,8 @@
 let uninstallURL = "https://docs.google.com/forms/d/e/1FAIpQLSfbJAQhkePgwqwNoSeRD1elsOyUgWwY6flN18itX515-8Q80A/viewform?usp=sf_link";
 // let installURL = "http://127.0.0.1:5500/install.html";
-let installURL = "file:///C:/Users/tneem/Documents/Projects/Chrome%20Extension/try/install.html";
+let installURL = "file:///C:/Users/tneem/Documents/Projects/Chrome%20Extension/try/HTML/install.html";
 // let updateURL = "http://127.0.0.1:5500/update.html";
-let updateURL = "file:///C:/Users/tneem/Documents/Projects/Chrome%20Extension/try/update.html";
+let updateURL = "file:///C:/Users/tneem/Documents/Projects/Chrome%20Extension/try/HTML/update.html";
 
 // New chrome page on unintsall
 chrome.runtime.setUninstallURL(uninstallURL, () => { });
@@ -21,7 +21,7 @@ let installReason = (detail) => {
         chrome.notifications.create({
             title: 'ACTIVE.LE',
             message: 'ACTIVE.LE got updated',
-            iconUrl: 'assets/logo.png',
+            iconUrl: '../assets/logo.png',
             type: 'basic'
         });
         chrome.notifications.onClicked.addListener(onClickedNotification);
@@ -165,7 +165,7 @@ chrome.alarms.onAlarm.addListener(function (alarm) {
         console.log("Alarm received");
         chrome.notifications.create('Reminder', {
             type: 'basic',
-            iconUrl: 'assets/logo.png',
+            iconUrl: '../assets/logo.png',
             title: 'Break Time',
             message: 'Achivement completed. You successfully completed the study task. Take a break.'
         }, function (notificationId) {
@@ -180,7 +180,7 @@ chrome.alarms.onAlarm.addListener(function (alarm) {
     if (alarm.name == "Water") {
         chrome.notifications.create('Reminder', {
             type: 'basic',
-            iconUrl: 'assets/logo.png',
+            iconUrl: '../assets/logo.png',
             title: 'Drink Water',
             message: 'Time to drink water. I will remind you again in 30 mins'
         }, function (notificationId) {

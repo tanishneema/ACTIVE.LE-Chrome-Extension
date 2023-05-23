@@ -15,7 +15,7 @@
         "identity.email"
     ],
     "options_ui": {
-        "page": "options.html",
+        "page": "OptionsPage/options.html",
         "open_in_tab": false
     },
     "host_permissions": [
@@ -27,7 +27,7 @@
         "16": "assets/logo.png"
     },
     "background": {
-        "service_worker": "background.js"
+        "service_worker": "JS/background.js"
     },
     "content_scripts": [
         {
@@ -40,7 +40,7 @@
                 "https://*.youtube.com/*"
             ],
             "js": [
-                "content.js"
+                "JS/content.js"
             ]
         }
     ],
